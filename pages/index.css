@@ -12,6 +12,8 @@
 
 @import url(../blocks/header/__logo/header__logo.css);
 
+@import url(../blocks/header/_spaced/header_spaced.css);
+
 
 /* ======================profile====================== */
 
@@ -23,8 +25,19 @@
 @import url(../blocks/profile/__edit-button/profile__edit-button.css);
 @import url(../blocks/profile/__info/profile__info.css);
 @import url(../blocks/profile/__name/profile__name.css);
+@import url(../blocks/profile/_spaced/profile_spaced.css);
 
 
 /* ======================mixes====================== */
 
 @import url(../blocks/sizer/sizer.css);
+
+@import url(../blocks/text/text.css);
+
+@import url(../blocks/text/_color/text_color_black.css);
+@import url(../blocks/text/_color/text_color_white.css);
+
+@import url(../blocks/text/_size/text_size_l.css);
+@import url(../blocks/text/_size/text_size_m.css);
+@import url(../blocks/text/_size/text_size_s.css);
+

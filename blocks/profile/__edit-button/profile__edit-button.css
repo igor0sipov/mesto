@@ -1,0 +1,11 @@
+.profile__edit-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #fff;
+  padding: 7px;
+  box-sizing: border-box;
+  grid-area: ico;
+  align-self: end;
+  margin-left: 17px;
+}
