@@ -28,6 +28,17 @@
 @import url(../blocks/profile/_spaced/profile_spaced.css);
 
 
+/* ======================main====================== */
+
+@import url(../blocks/main/main.css);
+
+@import url(../blocks/elements/elements.css);
+
+@import url(../blocks/element/element.css);
+@import url(../blocks/element/__like-button/element__like-button.css);
+@import url(../blocks/element/__name/element__name.css);
+@import url(../blocks/element/__picture/element__picture.css);
+
 /* ======================mixes====================== */
 
 @import url(../blocks/sizer/sizer.css);

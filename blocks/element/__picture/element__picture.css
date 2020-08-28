@@ -1,0 +1,6 @@
+.element__picture {
+  width: 100%;
+  height: 280px; /*  #TODO */
+  object-fit: cover;
+  border-radius: 10px 10px 0 0;
+}
