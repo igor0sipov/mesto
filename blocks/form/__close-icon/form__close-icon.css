@@ -1,0 +1,11 @@
+.form__close-icon {
+  position: absolute;
+  right: -45px;
+  top: -47px;
+  cursor: pointer;
+  transition: opacity .2s ease-out;
+}
+
+.form__close-icon:hover {
+  opacity: 0.6;
+}
