@@ -8,4 +8,5 @@
   grid-area: ico;
   align-self: end;
   margin-left: 17px;
+  cursor: pointer;
 }
