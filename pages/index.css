@@ -39,6 +39,11 @@
 @import url(../blocks/element/__name/element__name.css);
 @import url(../blocks/element/__picture/element__picture.css);
 
+/* ======================footer====================== */
+
+@import url(../blocks/footer/footer.css);
+@import url(../blocks/footer/__copyright/footer__copyright.css);
+
 /* ======================mixes====================== */
 
 @import url(../blocks/sizer/sizer.css);
