@@ -39,17 +39,15 @@
 @import url(../blocks/element/__name/element__name.css);
 @import url(../blocks/element/__picture/element__picture.css);
 
-/* ======================edit-form====================== */
-@import url(../blocks/edit-form/edit-form.css);
-@import url(../blocks/edit-form/_hidden/edit-form_hidden.css);
-
-@import url(../blocks/form/form.css);
-@import url(../blocks/form/__close-icon/form__close-icon.css);
-@import url(../blocks/form/__bio/form__bio.css);
-@import url(../blocks/form/__submit-button/form__submit-button.css);
-@import url(../blocks/form/__name/form__name.css);
-@import url(../blocks/form/__title/form__title.css);
-
+/* ======================popup====================== */
+@import url(../blocks/popup/popup.css);
+@import url(../blocks/popup/_opened/popup_opened.css);
+@import url(../blocks/popup/__bio/popup__bio.css);
+@import url(../blocks/popup/__close-icon/popup__close-icon.css);
+@import url(../blocks/popup/__container/popup__container.css);
+@import url(../blocks/popup/__name/popup__name.css);
+@import url(../blocks/popup/__submit-button/popup__submit-button.css);
+@import url(../blocks/popup/__title/popup__title.css);
 
 /* ======================footer====================== */
 

@@ -1,17 +1,17 @@
 const profileName = document.querySelector('.profile__name');
 const profileBio = document.querySelector('.profile__bio');
-const editButton = document.querySelector('.profile__edit-button');
-const editProfileForm = document.querySelector('.edit-form');
-const form = document.querySelector('.form');
-const formNameInput = form.querySelector('.form__name');
-const formBioInput = form.querySelector('.form__bio');
-const formCloseButton = form.querySelector('.form__close-icon');
-const formSubmitButton = form.querySelector('.form__submit-button');
+const profileEditButton = document.querySelector('.profile__edit-button');
+const editProfilePopup = document.querySelector('.popup');
+const form = document.querySelector('.popup__container');
+const formNameInput = form.querySelector('.popup__name');
+const formBioInput = form.querySelector('.popup__bio');
+const formCloseButton = form.querySelector('.popup__close-icon');
+const formSubmitButton = form.querySelector('.popup__submit-button');
 
 //==========================popup-opening/closing==================================
 
 popupToggle = (event) => {
-  editProfileForm.classList.toggle('edit-form_hidden');
+  editProfilePopup.classList.toggle('popup_opened');
 }
 
 overlayClosing = (event) => {
@@ -21,9 +21,9 @@ overlayClosing = (event) => {
   popupToggle(event);
 }
 
-editButton.addEventListener('click', popupToggle);
+profileEditButton.addEventListener('click', popupToggle);
 formCloseButton.addEventListener('click', popupToggle);
-editProfileForm.addEventListener('mousedown', overlayClosing);
+editProfilePopup.addEventListener('mousedown', overlayClosing);
 
 //==========================popup-data==================================
 

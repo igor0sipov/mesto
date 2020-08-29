@@ -1,4 +1,4 @@
-.form__submit-button {
+.popup__submit-button {
   margin: 0;
   padding: 14px 0;
   border: none;
@@ -16,6 +16,6 @@
   text-align: center;
 }
 
-.form__submit-button:hover {
+.popup__submit-button:hover {
   opacity: 0.8;
 }

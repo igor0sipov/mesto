@@ -1,4 +1,4 @@
-.form__close-icon {
+.popup__close-icon {
   position: absolute;
   right: -45px;
   top: -47px;
@@ -6,6 +6,6 @@
   transition: opacity .2s ease-out;
 }
 
-.form__close-icon:hover {
+.popup__close-icon:hover {
   opacity: 0.6;
 }
