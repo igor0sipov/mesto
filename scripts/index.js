@@ -6,6 +6,7 @@ const form = document.querySelector('.form');
 const formNameInput = form.querySelector('.form__name');
 const formBioInput = form.querySelector('.form__bio');
 const formCloseButton = form.querySelector('.form__close-icon');
+const formSubmitButton = form.querySelector('.form__submit-button');
 
 //==========================popup-opening/closing==================================
 
@@ -25,5 +26,15 @@ formCloseButton.addEventListener('click', popupToggle);
 editProfileForm.addEventListener('mousedown', overlayClosing);
 
 //==========================popup-data==================================
+
 formNameInput.value = profileName.innerHTML;
 formBioInput.value = profileBio.innerHTML;
+
+formSubmitHandler = (evt) => {
+  evt.preventDefault();
+  profileName.innerHTML = formNameInput.value;
+  profileBio.innerHTML = formBioInput.value;
+  popupToggle(event);
+}
+
+form.addEventListener('submit', formSubmitHandler);
