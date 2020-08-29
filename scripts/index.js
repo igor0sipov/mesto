@@ -1,12 +1,12 @@
-const profileName = document.querySelector('.profile__name');
-const profileBio = document.querySelector('.profile__bio');
-const profileEditButton = document.querySelector('.profile__edit-button');
-const editProfilePopup = document.querySelector('.popup');
-const form = document.querySelector('.popup__container');
-const formNameInput = form.querySelector('.popup__name');
-const formBioInput = form.querySelector('.popup__bio');
-const formCloseButton = form.querySelector('.popup__close-icon');
-const formSubmitButton = form.querySelector('.popup__submit-button');
+let profileName = document.querySelector('.profile__name');
+let profileBio = document.querySelector('.profile__bio');
+let profileEditButton = document.querySelector('.profile__edit-button');
+let editProfilePopup = document.querySelector('.popup');
+let form = document.querySelector('.popup__container');
+let formNameInput = form.querySelector('.popup__name');
+let formBioInput = form.querySelector('.popup__bio');
+let formCloseButton = form.querySelector('.popup__close-icon');
+let formSubmitButton = form.querySelector('.popup__submit-button');
 
 //==========================popup-opening/closing==================================
 
@@ -28,8 +28,6 @@ formCloseButton.addEventListener('click', popupToggle);
 editProfilePopup.addEventListener('mousedown', overlayClosing);
 
 //==========================popup-data==================================
-
-
 
 formSubmitHandler = (evt) => {
   evt.preventDefault();
