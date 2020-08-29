@@ -1,5 +1,22 @@
 .header__logo {
-  min-width: 142px;
+  width: 100%;
+  max-width: 143px;
   margin-bottom: 40px;
   background-image: url(../../../pictures/logo_white.png);
+  background-repeat: no-repeat;
+  background-position: top left;
+  background-size: contain;
+}
+
+@media screen and (max-width: 879px) {
+  .header__logo {
+    margin-left: 30px;
+  }
+}
+
+@media screen and (max-width: 780px) {
+  .header__logo {
+    max-width: 101px;
+    margin-bottom: 30px;
+  }
 }

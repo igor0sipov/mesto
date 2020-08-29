@@ -9,3 +9,9 @@
 .popup__close-icon:hover {
   opacity: 0.6;
 }
+
+@media screen and (max-width: 430px) {
+  .popup__close-icon {
+    display: none;
+  }
+}

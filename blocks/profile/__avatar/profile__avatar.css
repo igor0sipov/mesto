@@ -4,3 +4,9 @@
   grid-area: pic;
   margin-right: 30px;
 }
+
+@media screen and (max-width: 780px) {
+  .profile__avatar {
+    margin: 0 0 15px 0;
+  }
+}

@@ -3,3 +3,10 @@
   padding: 0;
   grid-area: bio;
 }
+
+
+@media screen and (max-width: 380px) {
+  .profile__bio {
+    margin: 14px 0 0;
+  }
+}

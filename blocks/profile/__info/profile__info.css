@@ -1,8 +1,15 @@
 .profile__info {
   display: grid;
-  grid-template-columns: repeat(3, max-content);
+  grid-template-columns: repeat(2, max-content);
   grid-template-rows: repeat(2, 1fr);
   grid-template-areas:
-  'pic name ico'
-  'pic bio  .';
+  'name ico'
+  'bio  bio';
+}
+
+@media screen and (max-width: 780px) {
+  .profile__info {
+    margin-bottom: 36px;
+    justify-items: center;
+  }
 }

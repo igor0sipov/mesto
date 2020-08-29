@@ -12,6 +12,8 @@ const formSubmitButton = form.querySelector('.popup__submit-button');
 
 popupToggle = (event) => {
   editProfilePopup.classList.toggle('popup_opened');
+  formNameInput.value = profileName.innerHTML;
+  formBioInput.value = profileBio.innerHTML;
 }
 
 overlayClosing = (event) => {
@@ -27,8 +29,7 @@ editProfilePopup.addEventListener('mousedown', overlayClosing);
 
 //==========================popup-data==================================
 
-formNameInput.value = profileName.innerHTML;
-formBioInput.value = profileBio.innerHTML;
+
 
 formSubmitHandler = (evt) => {
   evt.preventDefault();
