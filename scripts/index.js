@@ -9,14 +9,19 @@ let formCloseButton = form.querySelector('.popup__close-icon');
 let formSubmitButton = form.querySelector('.popup__submit-button');
 
 //==========================popup-opening/closing==================================
+console.log(profileName.textContent);
 
-popupToggle = (event) => {
-  editProfilePopup.classList.toggle('popup_opened');
-  formNameInput.value = profileName.innerHTML;
-  formBioInput.value = profileBio.innerHTML;
+function changeInputsValues(event){
+  formNameInput.value = profileName.textContent;
+  formBioInput.value = profileBio.textContent;
 }
 
-overlayClosing = (event) => {
+function popupToggle(event) {
+  editProfilePopup.classList.toggle('popup_opened');
+}
+
+
+function overlayClosing(event) {
   if (event.target !== event.currentTarget) {
     return
   }
@@ -24,16 +29,18 @@ overlayClosing = (event) => {
 }
 
 profileEditButton.addEventListener('click', popupToggle);
+profileEditButton.addEventListener('click', changeInputsValues);
 formCloseButton.addEventListener('click', popupToggle);
-editProfilePopup.addEventListener('mousedown', overlayClosing);
+editProfilePopup.addEventListener('click', overlayClosing); //edited
 
 //==========================popup-data==================================
 
-formSubmitHandler = (evt) => {
+function formSubmitHandler(evt) {
+  console.log(evt);
   evt.preventDefault();
-  profileName.innerHTML = formNameInput.value;
-  profileBio.innerHTML = formBioInput.value;
-  popupToggle(event);
+  profileName.textContent = formNameInput.value;
+  profileBio.textContent = formBioInput.value;
+  popupToggle(evt);
 }
 
 form.addEventListener('submit', formSubmitHandler);
