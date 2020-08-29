@@ -7,13 +7,10 @@ const formNameInput = form.querySelector('.form__name');
 const formBioInput = form.querySelector('.form__bio');
 const formCloseButton = form.querySelector('.form__close-icon');
 
+//==========================popup-opening/closing==================================
+
 popupToggle = (event) => {
-  console.log(event);
   editProfileForm.classList.toggle('edit-form_hidden');
-  console.log({
-    target: event.target,
-    currentTarget: event.currentTarget,
-  })
 }
 
 overlayClosing = (event) => {
@@ -27,4 +24,6 @@ editButton.addEventListener('click', popupToggle);
 formCloseButton.addEventListener('click', popupToggle);
 editProfileForm.addEventListener('mousedown', overlayClosing);
 
-
+//==========================popup-data==================================
+formNameInput.value = profileName.innerHTML;
+formBioInput.value = profileBio.innerHTML;
