@@ -6,10 +6,22 @@
   text-overflow: ellipsis; /* edited */
   overflow: hidden;
   grid-area: name;
+
+  font-style: normal;
+  font-weight: 500;
+  font-size: 42px;
+  line-height: 56px;
+  color: white;
 }
 
 @media screen and (max-width: 779px) {
   .profile__name {
     max-width: 70vw;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .profile__name {
+    font-size: 27px;
   }
 }

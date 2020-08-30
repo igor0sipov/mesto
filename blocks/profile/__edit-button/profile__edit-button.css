@@ -1,7 +1,4 @@
 .profile__edit-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   background: url(../../../images/edit-pen.svg);
   background-repeat: no-repeat;
   background-position: center;
