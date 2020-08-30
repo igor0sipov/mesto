@@ -1,6 +1,9 @@
 .profile__bio {
+  max-width: 440px;
   margin: 16px 0 0;
   padding: 0;
+  text-overflow: ellipsis; /* edited */
+  overflow: hidden;
   grid-area: bio;
 }
 
@@ -8,5 +11,10 @@
 @media screen and (max-width: 380px) {
   .profile__bio {
     margin: 14px 0 0;
+  }
+}
+@media screen and (max-width: 779px) {
+  .profile__bio {
+    max-width: 70vw;
   }
 }

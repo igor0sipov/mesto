@@ -1,6 +1,15 @@
 .profile__name {
+  max-width: 440px;
   margin: 0;
   padding: 0;
   align-self: end;
+  text-overflow: ellipsis; /* edited */
+  overflow: hidden;
   grid-area: name;
+}
+
+@media screen and (max-width: 779px) {
+  .profile__name {
+    max-width: 70vw;
+  }
 }
