@@ -9,7 +9,6 @@ let formCloseButton = form.querySelector('.popup__close-icon');
 let formSubmitButton = form.querySelector('.popup__submit-button');
 
 //==========================popup-opening/closing==================================
-console.log(profileName.textContent);
 
 function changeInputsValues(event){
   formNameInput.value = profileName.textContent;
@@ -36,7 +35,6 @@ editProfilePopup.addEventListener('click', overlayClosing); //edited
 //==========================popup-data==================================
 
 function formSubmitHandler(evt) {
-  console.log(evt);
   evt.preventDefault();
   profileName.textContent = formNameInput.value;
   profileBio.textContent = formBioInput.value;
