@@ -1,7 +1,7 @@
 const profileName = document.querySelector('.profile__name');
 const profileBio = document.querySelector('.profile__bio');
 const profileEditButton = document.querySelector('.profile__edit-button');
-const editProfilePopup = document.querySelector('.popup');
+const editProfilePopup = document.querySelector('.edit-profile-js');
 const form = document.querySelector('.popup__container');
 const formNameInput = form.querySelector('.popup__name');
 const formBioInput = form.querySelector('.popup__bio');
@@ -10,13 +10,17 @@ const formSubmitButton = form.querySelector('.popup__submit-button');
 
 //==========================popup-opening/closing==================================
 
-popupToggle = (event) => {
-  editProfilePopup.classList.toggle('popup_opened');
-  formNameInput.value = profileName.innerHTML;
-  formBioInput.value = profileBio.innerHTML;
+function changeInputsValues(event) {
+  formNameInput.value = profileName.textContent;
+  formBioInput.value = profileBio.textContent;
 }
 
-overlayClosing = (event) => {
+function popupToggle(event) {
+  editProfilePopup.classList.toggle('popup_opened');
+}
+
+
+function overlayClosing(event) {
   if (event.target !== event.currentTarget) {
     return
   }
@@ -24,16 +28,17 @@ overlayClosing = (event) => {
 }
 
 profileEditButton.addEventListener('click', popupToggle);
+profileEditButton.addEventListener('click', changeInputsValues);
 formCloseButton.addEventListener('click', popupToggle);
-editProfilePopup.addEventListener('mousedown', overlayClosing);
+editProfilePopup.addEventListener('click', overlayClosing); //edited
 
 //==========================popup-data==================================
 
-formSubmitHandler = (evt) => {
+function formSubmitHandler(evt) {
   evt.preventDefault();
-  profileName.innerHTML = formNameInput.value;
-  profileBio.innerHTML = formBioInput.value;
-  popupToggle(event);
+  profileName.textContent = formNameInput.value;
+  profileBio.textContent = formBioInput.value;
+  popupToggle(evt);
 }
 
 form.addEventListener('submit', formSubmitHandler);
@@ -68,17 +73,23 @@ const initialCards = [
 ];
 
 function initialCardsRender() {
+
   initialCards.forEach(card => {
+
     const templateContent = document.querySelector('.card-template').content.cloneNode(true);
     const elements = document.querySelector('.elements');
     const elementName = templateContent.querySelector('.element__name');
     const elementPicture = templateContent.querySelector('.element__picture');
+
     elementName.textContent = card.title;
     elementPicture.src = card.image;
     elements.prepend(templateContent);
+
   });
 
 }
 
 initialCardsRender();
+
+//==========================adding-new-pics==================================
 
