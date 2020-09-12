@@ -57,15 +57,5 @@
 /* ======================mixes====================== */
 
 @import url(../blocks/sizer/sizer.css);
-
-@import url(../blocks/text/text.css);
-
-@import url(../blocks/text/_color/text_color_black.css);
-@import url(../blocks/text/_color/text_color_white.css);
-
-@import url(../blocks/text/_size/text_size_l.css);
-@import url(../blocks/text/_size/text_size_m.css);
-@import url(../blocks/text/_size/text_size_s.css);
-
-@import url(../blocks/input/input.css)
+@import url(../blocks/input/input.css);
 
