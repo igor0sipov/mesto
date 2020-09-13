@@ -1,3 +1,5 @@
+//==========================main-variables-init==================================
+
 const editProfileButton = document.querySelector('.profile__edit-button');
 const addPlaceButton = document.querySelector('.profile__add-button')
 const profileName = document.querySelector('.profile__name');
@@ -22,6 +24,8 @@ let secondLine;
 let closeButton;
 let submitButton;
 
+//==========================open/close-popup==================================
+
 function popupIs (popupName) {
   editForm = popupName.querySelector('.popup__container');
   firstLine = editForm.querySelector('.popup__first-line');
@@ -31,7 +35,6 @@ function popupIs (popupName) {
 }
 
 function popupToggle(name) {
-
   popupIs(name);
   firstLine.value = '';
   secondLine.value = '';
@@ -63,7 +66,7 @@ addPlaceButton.addEventListener('click', () => popupToggle(addPlacePopup));
 editProfilePopup.addEventListener('click', closePopup);
 addPlacePopup.addEventListener('click', closePopup);
 
-//==========================popup-data==================================
+//==========================editProfilePopup-content==================================
 
 function editProfile (evt) {
   evt.preventDefault();
@@ -73,25 +76,12 @@ function editProfile (evt) {
 
 }
 
-function addPlace (evt) {
-  popupIs(addPlacePopup);
-  initialCards = [];
-  evt.preventDefault();
-  const newElem = {
-    title: firstLine.value,
-    image: secondLine.value
-  }
-  initialCards.push(newElem);
-  popupToggle(addPlacePopup);
-  initialCardsRender();
-}
-
   editProfilePopup.addEventListener('submit', editProfile);
   addPlacePopup.addEventListener('submit', addPlace);
 
 //==========================template-gallery==================================
 
-let initialCards = [
+let placeCards = [
   {
     title: 'Алтай',
     image: 'https://images.unsplash.com/photo-1500101460942-f91854be42e4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80'
@@ -118,9 +108,9 @@ let initialCards = [
   }
 ];
 
-function initialCardsRender() {
+function placeCardsRender() {
 
-  initialCards.forEach(card => {
+  placeCards.forEach(card => {
     const templateContent = document.querySelector('.card-template').content.cloneNode(true);
     const elements = document.querySelector('.elements');
     const elementName = templateContent.querySelector('.element__name');
@@ -133,7 +123,22 @@ function initialCardsRender() {
 
 }
 
-initialCardsRender();
+placeCardsRender();
 
 //==========================adding-new-pics==================================
+
+function addPlace (evt) {
+  popupIs(addPlacePopup);
+  placeCards = [];
+  evt.preventDefault();
+  const newElem = {
+    title: firstLine.value,
+    image: secondLine.value
+  }
+  placeCards.push(newElem);
+  popupToggle(addPlacePopup);
+  placeCardsRender();
+}
+
+addPlacePopup.addEventListener('submit', addPlace);
 
