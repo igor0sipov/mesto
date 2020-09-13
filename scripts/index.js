@@ -9,13 +9,12 @@ let editProfilePopup
 const popup = document.querySelectorAll('.popup');
 popup.forEach((elem, index) => {
   if (popup[index].dataset.whatPopup == 'edit-profile') {
-    addPlacePopup = elem;
-  }
-  if (popup[index].dataset.whatPopup == 'add-place') {
     editProfilePopup = elem;
   }
+  if (popup[index].dataset.whatPopup == 'add-place') {
+    addPlacePopup = elem;
+  }
 })
-
 
 let editForm;
 let firstLine;
@@ -23,19 +22,21 @@ let secondLine;
 let closeButton;
 let submitButton;
 
-function popupIs (popup) {
-  editForm = popup.querySelector('.popup__container');
+function popupIs (popupName) {
+  editForm = popupName.querySelector('.popup__container');
   firstLine = editForm.querySelector('.popup__first-line');
   secondLine = editForm.querySelector('.popup__second-line');
-  closeButton = editForm.querySelector('.popup__close-ico');
+  closeButton = editForm.querySelector('.popup__close-icon');
   submitButton = editForm.querySelector('.popup__submit-button');
 }
 
 function popupToggle(name) {
+
   popupIs(name);
   firstLine.value = '';
   secondLine.value = '';
   name.classList.toggle('popup_opened');
+  closeButton.addEventListener('click', closePopup);
 }
 
 function changeLineValues(popup) {
@@ -48,7 +49,12 @@ function closePopup(event) {
   if (event.target !== event.currentTarget) {
     return;
   }
-  popupToggle(this);
+  else if (event.target == closeButton) {
+    popupToggle(event.path[2]);
+  }
+  else if (event.target !== closeButton) {
+    popupToggle(event.target);
+  }
 }
 
 editProfileButton.addEventListener('click', () => popupToggle(editProfilePopup));
