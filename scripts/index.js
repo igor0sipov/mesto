@@ -1,51 +1,76 @@
+const editProfileButton = document.querySelector('.profile__edit-button');
+const addPlaceButton = document.querySelector('.profile__add-button')
 const profileName = document.querySelector('.profile__name');
 const profileBio = document.querySelector('.profile__bio');
-const profileEditButton = document.querySelector('.profile__edit-button');
+
+const addPlacePopup = document.querySelector('.add-place-js');
 const editProfilePopup = document.querySelector('.edit-profile-js');
-const form = document.querySelector('.popup__container');
-const formNameInput = form.querySelector('.popup__name');
-const formBioInput = form.querySelector('.popup__bio');
-const formCloseButton = form.querySelector('.popup__close-icon');
-const formSubmitButton = form.querySelector('.popup__submit-button');
 
-//==========================popup-opening/closing==================================
+let editForm;
+let firstLine;
+let secondLine;
+let closeButton;
+let submitButton;
 
-function changeInputsValues(event) {
-  formNameInput.value = profileName.textContent;
-  formBioInput.value = profileBio.textContent;
+function popupIs (popup) {
+  editForm = popup.querySelector('.popup__container');
+  firstLine = editForm.querySelector('.popup__name');
+  secondLine = editForm.querySelector('.popup__bio');
+  closeButton = editForm.querySelector('.popup__close-ico');
+  submitButton = editForm.querySelector('.popup__submit-button');
 }
 
-function popupToggle(event) {
-  editProfilePopup.classList.toggle('popup_opened');
+function popupToggle(name) {
+  name.classList.toggle('popup_opened');
 }
 
+function changeLineValues(popup) {
+  popupIs(popup);
+  firstLine.value = profileName.textContent;
+  secondLine.value = profileBio.textContent;
+}
 
-function overlayClosing(event) {
+function closePopup(event) {
   if (event.target !== event.currentTarget) {
-    return
+    return;
   }
-  popupToggle(event);
+  popupToggle(this);
 }
 
-profileEditButton.addEventListener('click', popupToggle);
-profileEditButton.addEventListener('click', changeInputsValues);
-formCloseButton.addEventListener('click', popupToggle);
-editProfilePopup.addEventListener('click', overlayClosing); //edited
+editProfileButton.addEventListener('click', () => changeLineValues(editProfilePopup));
+editProfileButton.addEventListener('click', () => popupToggle(editProfilePopup));
+addPlaceButton.addEventListener('click', () => popupToggle(addPlacePopup));
+editProfilePopup.addEventListener('click', closePopup);
+addPlacePopup.addEventListener('click', closePopup);
 
 //==========================popup-data==================================
 
-function formSubmitHandler(evt) {
+function editProfile (evt) {
   evt.preventDefault();
-  profileName.textContent = formNameInput.value;
-  profileBio.textContent = formBioInput.value;
-  popupToggle(evt);
+  profileName.textContent = firstLine.value;
+  profileBio.textContent = secondLine.value;
+  popupToggle(editProfilePopup);
+
 }
 
-form.addEventListener('submit', formSubmitHandler);
+function addPlace (evt) {
+  initialCards = [];
+  evt.preventDefault();
+  popupIs(addPlacePopup);
+  const newElem = {
+    title: firstLine.value,
+    image: secondLine.value
+  }
+  initialCards.push(newElem);
+  popupToggle(addPlacePopup);
+  initialCardsRender();
+}
 
+  editProfilePopup.addEventListener('submit', editProfile);
+  addPlacePopup.addEventListener('submit', addPlace);
 //==========================template-gallery==================================
 
-const initialCards = [
+let initialCards = [
   {
     title: 'Алтай',
     image: 'https://images.unsplash.com/photo-1500101460942-f91854be42e4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80'
@@ -69,13 +94,12 @@ const initialCards = [
   {
     title: 'Дунилово',
     image: 'https://images.unsplash.com/photo-1570579425144-46bcf064db84?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=675&q=80'
-  },
+  }
 ];
 
 function initialCardsRender() {
 
   initialCards.forEach(card => {
-
     const templateContent = document.querySelector('.card-template').content.cloneNode(true);
     const elements = document.querySelector('.elements');
     const elementName = templateContent.querySelector('.element__name');
@@ -84,7 +108,6 @@ function initialCardsRender() {
     elementName.textContent = card.title;
     elementPicture.src = card.image;
     elements.prepend(templateContent);
-
   });
 
 }
