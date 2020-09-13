@@ -3,8 +3,22 @@ const addPlaceButton = document.querySelector('.profile__add-button')
 const profileName = document.querySelector('.profile__name');
 const profileBio = document.querySelector('.profile__bio');
 
-const addPlacePopup = document.querySelector('.add-place-js');
-const editProfilePopup = document.querySelector('.edit-profile-js');
+// const addPlacePopup = document.querySelector('.add-place-js');
+// const editProfilePopup = document.querySelector('.edit-profile-js');
+
+let addPlacePopup
+let editProfilePopup
+
+const popup = document.querySelectorAll('.popup');
+popup.forEach((elem, index) => {
+  if (popup[index].dataset.whatPopup == 'edit-profile') {
+    addPlacePopup = elem;
+  }
+  if (popup[index].dataset.whatPopup == 'add-place') {
+    editProfilePopup = elem;
+  }
+})
+
 
 let editForm;
 let firstLine;
@@ -21,6 +35,9 @@ function popupIs (popup) {
 }
 
 function popupToggle(name) {
+  popupIs(name);
+  firstLine.value = '';
+  secondLine.value = '';
   name.classList.toggle('popup_opened');
 }
 
@@ -37,8 +54,8 @@ function closePopup(event) {
   popupToggle(this);
 }
 
-editProfileButton.addEventListener('click', () => changeLineValues(editProfilePopup));
 editProfileButton.addEventListener('click', () => popupToggle(editProfilePopup));
+editProfileButton.addEventListener('click', () => changeLineValues(editProfilePopup));
 addPlaceButton.addEventListener('click', () => popupToggle(addPlacePopup));
 editProfilePopup.addEventListener('click', closePopup);
 addPlacePopup.addEventListener('click', closePopup);
@@ -54,9 +71,9 @@ function editProfile (evt) {
 }
 
 function addPlace (evt) {
+  popupIs(addPlacePopup);
   initialCards = [];
   evt.preventDefault();
-  popupIs(addPlacePopup);
   const newElem = {
     title: firstLine.value,
     image: secondLine.value
@@ -68,6 +85,7 @@ function addPlace (evt) {
 
   editProfilePopup.addEventListener('submit', editProfile);
   addPlacePopup.addEventListener('submit', addPlace);
+
 //==========================template-gallery==================================
 
 let initialCards = [
