@@ -25,8 +25,8 @@ let submitButton;
 
 function popupIs (popup) {
   editForm = popup.querySelector('.popup__container');
-  firstLine = editForm.querySelector('.popup__name');
-  secondLine = editForm.querySelector('.popup__bio');
+  firstLine = editForm.querySelector('.popup__first-line');
+  secondLine = editForm.querySelector('.popup__second-line');
   closeButton = editForm.querySelector('.popup__close-ico');
   submitButton = editForm.querySelector('.popup__submit-button');
 }
