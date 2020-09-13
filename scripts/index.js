@@ -3,9 +3,6 @@ const addPlaceButton = document.querySelector('.profile__add-button')
 const profileName = document.querySelector('.profile__name');
 const profileBio = document.querySelector('.profile__bio');
 
-// const addPlacePopup = document.querySelector('.add-place-js');
-// const editProfilePopup = document.querySelector('.edit-profile-js');
-
 let addPlacePopup
 let editProfilePopup
 
