@@ -5,6 +5,10 @@ const addPlaceButton = document.querySelector('.profile__add-button')
 const profileName = document.querySelector('.profile__name');
 const profileBio = document.querySelector('.profile__bio');
 
+const popupPicture = document.querySelector('.popup__picture');
+const popupCaption = document.querySelector('.popup__caption');
+
+
 let addPlacePopup
 let editProfilePopup
 
@@ -16,7 +20,9 @@ popup.forEach((elem, index) => {
   if (popup[index].dataset.whatPopup == 'add-place') {
     addPlacePopup = elem;
   }
-  if (popup[index].dataset.whatPopup == 'fullsize-photo')
+  if (popup[index].dataset.whatPopup == 'fullsize-photo') {
+    fullsizePhotoPopup = elem;
+  }
 })
 
 let editForm;
@@ -37,13 +43,15 @@ function choosePopup (popupName) {
 
 function popupToggle(name) {
   choosePopup(name);
-  firstLine.value = '';
-  secondLine.value = '';
+  if(name !== fullsizePhotoPopup) {
+    firstLine.value = '';
+    secondLine.value = '';
+  }
   name.classList.toggle('popup_opened');
   closeButton.addEventListener('click', closePopup);
 }
 
-function changeLineValues(popup) {
+function changePopupContent(popup) {
   choosePopup(popup);
   firstLine.value = profileName.textContent;
   secondLine.value = profileBio.textContent;
@@ -62,10 +70,11 @@ function closePopup(event) {
 }
 
 editProfileButton.addEventListener('click', () => popupToggle(editProfilePopup));
-editProfileButton.addEventListener('click', () => changeLineValues(editProfilePopup));
+editProfileButton.addEventListener('click', () => changePopupContent(editProfilePopup));
 addPlaceButton.addEventListener('click', () => popupToggle(addPlacePopup));
 editProfilePopup.addEventListener('click', closePopup);
 addPlacePopup.addEventListener('click', closePopup);
+fullsizePhotoPopup.addEventListener('click', closePopup);
 
 //==========================editProfilePopup-content==================================
 
@@ -79,6 +88,14 @@ function editProfile (evt) {
 
   editProfilePopup.addEventListener('submit', editProfile);
   addPlacePopup.addEventListener('submit', addPlace);
+
+//==========================fullsize-photo-opening==================================
+
+function openPhoto (event) {
+  popupPicture.src = event.target.src;
+  popupCaption.textContent = event.target.nextElementSibling.textContent;
+  popupToggle(fullsizePhotoPopup);
+}
 
 //==========================template-gallery==================================
 
@@ -109,17 +126,23 @@ let placeCards = [
   }
 ];
 
+let templateContent;
+let elements;
+let elementName;
+let elementPicture;
+
 function placeCardsRender() {
 
   placeCards.forEach(card => {
-    const templateContent = document.querySelector('.card-template').content.cloneNode(true);
-    const elements = document.querySelector('.elements');
-    const elementName = templateContent.querySelector('.element__name');
-    const elementPicture = templateContent.querySelector('.element__picture');
+    templateContent = document.querySelector('.card-template').content.cloneNode(true);
+    elements = document.querySelector('.elements');
+    elementName = templateContent.querySelector('.element__name');
+    elementPicture = templateContent.querySelector('.element__picture');
 
     elementName.textContent = card.title;
     elementPicture.src = card.image;
     elements.prepend(templateContent);
+    elementPicture.addEventListener('click', openPhoto);
   });
 
 }
@@ -144,5 +167,4 @@ function addPlace (evt) {
 addPlacePopup.addEventListener('submit', addPlace);
 
 
-//==========================open-picture==================================
 
