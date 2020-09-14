@@ -26,7 +26,7 @@ let submitButton;
 
 //==========================open/close-popup==================================
 
-function popupIs (popupName) {
+function choosePopup (popupName) {
   editForm = popupName.querySelector('.popup__container');
   firstLine = editForm.querySelector('.popup__first-line');
   secondLine = editForm.querySelector('.popup__second-line');
@@ -35,7 +35,7 @@ function popupIs (popupName) {
 }
 
 function popupToggle(name) {
-  popupIs(name);
+  choosePopup(name);
   firstLine.value = '';
   secondLine.value = '';
   name.classList.toggle('popup_opened');
@@ -43,7 +43,7 @@ function popupToggle(name) {
 }
 
 function changeLineValues(popup) {
-  popupIs(popup);
+  choosePopup(popup);
   firstLine.value = profileName.textContent;
   secondLine.value = profileBio.textContent;
 }
@@ -128,7 +128,7 @@ placeCardsRender();
 //==========================adding-new-pics==================================
 
 function addPlace (evt) {
-  popupIs(addPlacePopup);
+  choosePopup(addPlacePopup);
   placeCards = [];
   evt.preventDefault();
   const newElem = {
