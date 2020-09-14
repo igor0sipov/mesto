@@ -130,6 +130,7 @@ let templateContent;
 let elements;
 let elementName;
 let elementPicture;
+let deleteButton
 
 function placeCardsRender() {
 
@@ -138,11 +139,13 @@ function placeCardsRender() {
     elements = document.querySelector('.elements');
     elementName = templateContent.querySelector('.element__name');
     elementPicture = templateContent.querySelector('.element__picture');
+    deleteButton =  templateContent.querySelector('.element__delete-button');
 
     elementName.textContent = card.title;
     elementPicture.src = card.image;
     elements.prepend(templateContent);
     elementPicture.addEventListener('click', openPhoto);
+    deleteButton.addEventListener('click', removePlace);
   });
 
 }
@@ -168,12 +171,6 @@ addPlacePopup.addEventListener('submit', addPlace);
 
 //==========================deleting-pics==================================
 
-const deleteButton = document.querySelectorAll('.element__delete-button');
-
-function removeCard (event) {
+function removePlace (event) {
   event.target.closest('.element').remove();
 }
-
-deleteButton.forEach( button => {
-  button.addEventListener('click', removeCard);
-});
