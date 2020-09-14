@@ -41,8 +41,16 @@
       </ul>
     </main>
 
+    <section class="popup popup_opened">
+      <figure class="popup__container">
+        <button type="button" class="popup__close-icon"></button>
+        <img src="https://images.unsplash.com/photo-1570579425144-46bcf064db84?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=675&q=80" alt="">
+        <figcaption class="popup__caption">blablabla</figcaption>
+      </figure>
+    </section>
+
     <section class="popup" data-what-popup="edit-profile">
-      <form class="popup__container">
+      <form class="popup__container form">
         <button type="button" class="popup__close-icon"></button>
         <h3 class="popup__title">Редактировать профиль</h3>
         <input type="text" class="popup__first-line input" placeholder="Имя" required>
@@ -52,7 +60,7 @@
     </section>
 
     <section class="popup" data-what-popup="add-place">
-      <form class="popup__container">
+      <form class="popup__container form">
         <button type="button" class="popup__close-icon"></button>
         <h3 class="popup__title">Новое место</h3>
         <input type="text" class="popup__first-line input" placeholder="Название" required>

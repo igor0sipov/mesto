@@ -49,6 +49,7 @@
 @import url(../blocks/popup/__first-line/popup__first-line.css);
 @import url(../blocks/popup/__submit-button/popup__submit-button.css);
 @import url(../blocks/popup/__title/popup__title.css);
+@import url(../blocks/popup/__caption/popup__caption.css);
 
 /* ======================footer====================== */
 
@@ -56,7 +57,7 @@
 @import url(../blocks/footer/__copyright/footer__copyright.css);
 
 /* ======================mixes====================== */
-
+@import url(../blocks/form/form.css);
 @import url(../blocks/sizer/sizer.css);
 @import url(../blocks/input/input.css);
 

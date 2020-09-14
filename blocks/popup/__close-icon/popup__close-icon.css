@@ -1,7 +1,7 @@
 .popup__close-icon {
   position: absolute;
-  right: -45px;
-  top: -47px;
+  right: -48px;
+  top: -48px;
   cursor: pointer;
   transition: opacity .2s ease-out;
   width: 58px;
