@@ -16,6 +16,7 @@ popup.forEach((elem, index) => {
   if (popup[index].dataset.whatPopup == 'add-place') {
     addPlacePopup = elem;
   }
+  if (popup[index].dataset.whatPopup == 'fullsize-photo')
 })
 
 let editForm;
