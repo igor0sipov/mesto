@@ -142,3 +142,6 @@ function addPlace (evt) {
 
 addPlacePopup.addEventListener('submit', addPlace);
 
+
+//==========================open-picture==================================
+
