@@ -166,5 +166,14 @@ function addPlace (evt) {
 
 addPlacePopup.addEventListener('submit', addPlace);
 
+//==========================deleting-pics==================================
 
+const deleteButton = document.querySelectorAll('.element__delete-button');
 
+function removeCard (event) {
+  event.target.closest('.element').remove();
+}
+
+deleteButton.forEach( button => {
+  button.addEventListener('click', removeCard);
+});
