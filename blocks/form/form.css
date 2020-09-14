@@ -1,5 +1,6 @@
 .form {
   margin: 0;
+  width: 100%;
   max-width: 430px;
   background-color: #fff;
   border-radius: 10px;
