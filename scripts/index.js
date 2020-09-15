@@ -148,7 +148,7 @@ function placeCardsRender() {
     elements.prepend(templateContent);
     elementPicture.addEventListener('click', openPhoto);
     deleteButton.addEventListener('click', removePlace);
-    likeButton.addEventListener('click', )
+    likeButton.addEventListener('click', activateLike)
   });
 
 }
@@ -181,4 +181,6 @@ function removePlace (event) {
 
 //==========================like==================================
 
-function
+function activateLike (event) {
+  event.target.classList.toggle('element__like-button_active')
+}
