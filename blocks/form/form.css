@@ -7,3 +7,9 @@
   padding: 36px;
   box-sizing: border-box;
 }
+
+@media screen and (max-width: 380px) {
+  .form {
+    padding: 30px 20px;
+  }
+}

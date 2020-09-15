@@ -81,7 +81,6 @@ function editProfile (evt) {
   profileName.textContent = firstLine.value;
   profileBio.textContent = secondLine.value;
   toggleClass(editProfilePopup);
-
 }
 
   editProfilePopup.addEventListener('submit', editProfile);
