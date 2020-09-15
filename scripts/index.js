@@ -9,6 +9,7 @@ const popupPicture = document.querySelector('.popup__picture');
 const popupCaption = document.querySelector('.popup__caption');
 
 
+
 let addPlacePopup
 let editProfilePopup
 
@@ -41,12 +42,8 @@ function choosePopup (popupName) {
   submitButton = editForm.querySelector('.popup__submit-button');
 }
 
-function openPopup(name) {
+function toggleClass(name) {
   choosePopup(name);
-  if(name !== fullsizePhotoPopup) {
-    firstLine.value = '';
-    secondLine.value = '';
-  }
   name.classList.toggle('popup_opened');
   closeButton.addEventListener('click', closePopup);
 }
@@ -58,20 +55,21 @@ function changePopupContent(popup) {
 }
 
 function closePopup(event) {
+
   if (event.target !== event.currentTarget) {
     return;
   }
   else if (event.target == closeButton) {
-    openPopup(event.path[2]);
+    toggleClass(event.path[2]);
   }
   else if (event.target !== closeButton) {
-    openPopup(event.target);
+    toggleClass(event.target);
   }
 }
 
-editProfileButton.addEventListener('click', () => openPopup(editProfilePopup));
+editProfileButton.addEventListener('click', () => toggleClass(editProfilePopup));
 editProfileButton.addEventListener('click', () => changePopupContent(editProfilePopup));
-addPlaceButton.addEventListener('click', () => openPopup(addPlacePopup));
+addPlaceButton.addEventListener('click', () => toggleClass(addPlacePopup));
 editProfilePopup.addEventListener('click', closePopup);
 addPlacePopup.addEventListener('click', closePopup);
 fullsizePhotoPopup.addEventListener('click', closePopup);
@@ -82,7 +80,7 @@ function editProfile (evt) {
   evt.preventDefault();
   profileName.textContent = firstLine.value;
   profileBio.textContent = secondLine.value;
-  openPopup(editProfilePopup);
+  toggleClass(editProfilePopup);
 
 }
 
@@ -94,7 +92,7 @@ function editProfile (evt) {
 function openPhoto (event) {
   popupPicture.src = event.target.src;
   popupCaption.textContent = event.target.nextElementSibling.textContent;
-  openPopup(fullsizePhotoPopup);
+  toggleClass(fullsizePhotoPopup);
 }
 
 //==========================template-gallery==================================
@@ -166,8 +164,10 @@ function addPlace (evt) {
     image: secondLine.value
   }
   placeCards.push(newElem);
-  openPopup(addPlacePopup);
+  toggleClass(addPlacePopup);
   placeCardsRender();
+  firstLine.value = '';
+  secondLine.value = '';
 }
 
 addPlacePopup.addEventListener('submit', addPlace);
