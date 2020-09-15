@@ -182,5 +182,5 @@ function removePlace (event) {
 //==========================like==================================
 
 function activateLike (event) {
-  event.target.classList.toggle('element__like-button_active')
+  event.target.classList.toggle('element__like-button_active');
 }
