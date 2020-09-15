@@ -11,3 +11,11 @@
   font-size: 14px;
   line-height: 1.22;
 }
+
+
+@media screen and (max-width: 380px) {
+  .input {
+    font-size: 12px;
+    line-height: 1.25;
+  }
+}
