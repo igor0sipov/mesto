@@ -12,18 +12,26 @@ const editProfilePopup = document.querySelector(".edit-profile");
 const addPlacePopup = document.querySelector(".add-place");
 const fullsizePhotoPopup = document.querySelector(".fullsize-picture"); // edited
 
+const template = document.querySelector(".card-template");
+
 //==========================open/close-popup==================================
 
 let editForm;
+
+let firstLine;
+let secondLine;
+let closeButton;
+let submitButton;
+
+//==========================open/close-popup==================================
+
 function choosePopup(popupName) {
   editForm = popupName.querySelector(".popup__container");
+  firstLine = editForm.querySelector(".popup__first-line");
+  secondLine = editForm.querySelector(".popup__second-line");
+  closeButton = editForm.querySelector(".popup__close-icon");
+  submitButton = editForm.querySelector(".popup__submit-button");
 }
-choosePopup(editProfilePopup);
-
-const firstLine = editForm.querySelector(".popup__first-line");
-const secondLine = editForm.querySelector(".popup__second-line");
-const closeButton = editForm.querySelector(".popup__close-icon");
-const submitButton = editForm.querySelector(".popup__submit-button");
 
 function togglePopup(name) {
   choosePopup(name);
@@ -121,7 +129,6 @@ const placeCards = [
 const elements = document.querySelector(".elements");
 
 function initializeCard(card) {
-  const template = document.querySelector(".card-template");
   const templateContent = template.content.cloneNode(true);
   const elementName = templateContent.querySelector(".element__name");
   const elementPicture = templateContent.querySelector(".element__picture");
@@ -132,6 +139,10 @@ function initializeCard(card) {
   elementPicture.src = card.image;
   elementPicture.alt = card.alt;
 
+  elementPicture.addEventListener("click", openPhoto);
+  deleteButton.addEventListener("click", removePlace);
+  likeButton.addEventListener("click", activateLike);
+
   return templateContent;
 }
 
@@ -141,24 +152,20 @@ function renderCards() {
   });
 }
 
-renderCards();
+renderCards(); //edited
+
 //==========================adding-new-pics==================================
 
 function addPlace(evt) {
   choosePopup(addPlacePopup);
-  placeCards = [];
   evt.preventDefault();
   const newElem = {
     title: firstLine.value,
     image: secondLine.value,
     alt: firstLine.value,
   };
-  placeCards.push(newElem);
-  togglePopup(addPlacePopup);
-  renderPlaceCards();
-  firstLine.value = "";
-  secondLine.value = "";
-}
+  elements.prepend(initializeCard(newElem));
+} //edited
 
 addPlacePopup.addEventListener("submit", addPlace);
 
