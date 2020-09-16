@@ -119,6 +119,7 @@ const placeCards = [
   },
 ];
 const elements = document.querySelector(".elements");
+
 function initializeCard(card) {
   const template = document.querySelector(".card-template");
   const templateContent = template.content.cloneNode(true);
@@ -134,13 +135,13 @@ function initializeCard(card) {
   return templateContent;
 }
 
-function renderCards () {
-  placeCards.forEach(card => {
+function renderCards() {
+  placeCards.forEach((card) => {
     elements.prepend(initializeCard(card));
   });
 }
 
-renderCard();
+renderCards();
 //==========================adding-new-pics==================================
 
 function addPlace(evt) {
