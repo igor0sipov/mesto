@@ -13,47 +13,42 @@ const addPlacePopup = document.querySelector(".add-place");
 const fullsizePhotoPopup = document.querySelector(".fullsize-picture"); // edited
 
 const template = document.querySelector(".card-template");
+const popups = document.querySelectorAll(".popup");
 
-//==========================open/close-popup==================================
-
-let editForm;
-
-let firstLine;
-let secondLine;
-let closeButton;
-let submitButton;
+popups.forEach(el => {
+  const closeButton = el.querySelector('.popup__close-icon');
+  el.addEventListener ('click', (event) => {
+    if (event.target !== event.currentTarget) {
+      return;
+    }
+    togglePopup(el);
+  });
+  closeButton.addEventListener('click', () => {
+    togglePopup(el);
+  });
+});
 
 //==========================open/close-popup==================================
 
 function choosePopup(popupName) {
-  editForm = popupName.querySelector(".popup__container");
-  firstLine = editForm.querySelector(".popup__first-line");
-  secondLine = editForm.querySelector(".popup__second-line");
-  closeButton = editForm.querySelector(".popup__close-icon");
-  submitButton = editForm.querySelector(".popup__submit-button");
+  const editForm = popupName.querySelector(".popup__container");
+  const firstLine = editForm.querySelector(".popup__first-line");
+  const secondLine = editForm.querySelector(".popup__second-line");
+  const submitButton = editForm.querySelector(".popup__submit-button");
+
+  return { editForm, firstLine, secondLine, submitButton };
 }
 
 function togglePopup(name) {
-  choosePopup(name);
   name.classList.toggle("popup_opened");
-  closeButton.addEventListener("click", closePopup);
 }
 
 function changePopupContent(popup) {
-  choosePopup(popup);
-  firstLine.value = profileName.textContent;
-  secondLine.value = profileBio.textContent;
+  const init = choosePopup(popup);
+  init.firstLine.value = profileName.textContent;
+  init.secondLine.value = profileBio.textContent;
 }
 
-function closePopup(event) {
-  if (event.target !== event.currentTarget) {
-    return;
-  } else if (event.target == closeButton) {
-    togglePopup(event.path[2]);
-  } else if (event.target !== closeButton) {
-    togglePopup(event.target);
-  }
-}
 
 editProfileButton.addEventListener("click", () =>
   togglePopup(editProfilePopup)
@@ -62,9 +57,9 @@ editProfileButton.addEventListener("click", () =>
   changePopupContent(editProfilePopup)
 );
 addPlaceButton.addEventListener("click", () => togglePopup(addPlacePopup));
-editProfilePopup.addEventListener("click", closePopup);
-addPlacePopup.addEventListener("click", closePopup);
-fullsizePhotoPopup.addEventListener("click", closePopup);
+// editProfilePopup.addEventListener("click", closePopup);
+// addPlacePopup.addEventListener("click", closePopup);
+// fullsizePhotoPopup.addEventListener("click", closePopup);
 
 //==========================editProfilePopup-content==================================
 
