@@ -36,15 +36,30 @@ function changePopupContent(popup) {
   currentPopup.secondLine.value = profileBio.textContent;
 }
 
+function popupIsOpened (name) {
+  return name.classList.contains("popup_opened");
+}
+
+function openPopup (name) {
+
+  togglePopup(name);
+
+  document.addEventListener('keyup', evt => {
+    if (popupIsOpened(name) && (evt.key == "Escape" || evt.keyCode == 27)) {
+      togglePopup(name);
+    }
+  })
+}
+
 changePopupContent(editProfilePopup);
 
 editProfileButton.addEventListener("click", () =>
-  togglePopup(editProfilePopup)
+  openPopup(editProfilePopup)
 );
 editProfileButton.addEventListener("click", () =>
   changePopupContent(editProfilePopup)
 );
-addPlaceButton.addEventListener("click", () => togglePopup(addPlacePopup));
+addPlaceButton.addEventListener("click", () => openPopup(addPlacePopup));
 
 //==========================closing-listeners==================================
 
@@ -52,12 +67,13 @@ popups.forEach((el) => {
   const closeButton = el.querySelector(".popup__close-icon");
   closeButton.addEventListener("click", () => togglePopup(el));
 
-  el.addEventListener("mousedown", (event) => {
+  el.addEventListener("click", (event) => {
     if (event.target !== event.currentTarget) {
       return;
     }
     togglePopup(el);
   });
+
 });
 
 //==========================editProfilePopup-content==================================
@@ -78,7 +94,7 @@ addPlacePopup.addEventListener("submit", addPlace);
 function openPhoto(event) {
   popupPicture.src = event.target.src;
   popupCaption.textContent = event.target.nextElementSibling.textContent;
-  togglePopup(fullsizePhotoPopup);
+  openPopup(fullsizePhotoPopup);
 }
 
 //==========================template-gallery==================================
