@@ -182,3 +182,12 @@ function activateLike(event) {
 }
 
 //==========================validation=====================================
+
+const selectors = {
+    form: '.popup__form',
+    input: '.popup__input',
+    submitButton: '.popup__submit-button',
+    inactiveButton: 'popup__button_disabled',
+    inputError: 'popup__input_type_error',
+    error: 'popup__input-error_visible'
+}

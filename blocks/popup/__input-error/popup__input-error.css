@@ -1,4 +1,5 @@
 .popup__input-error {
+  visibility: hidden;
   color: red;
   font-style: normal;
   font-weight: normal;
