@@ -45,10 +45,10 @@
         <form class="popup__container form" novalidate>
           <button type="button" class="popup__close-icon"></button>
           <h3 class="popup__title">Редактировать профиль</h3>
-            <input type="text" class="popup__first-line input" placeholder="Имя" required>
-            <span class="popup__input-error"></span>
-            <input type="text" class="popup__second-line input" placeholder="О себе" required>
-            <span class="popup__input-error"></span>
+            <input type="text" class="popup__first-line input" id="form-name" placeholder="Имя" required minlength="2" maxlength="40">
+            <span class="popup__input-error" id="form-name-error"></span>
+            <input type="text" class="popup__second-line input" id="form-bio" placeholder="О себе" required minlength="2" maxlength="200">
+            <span class="popup__input-error" id="form-bio-error"></span>
           <button type="submit" class="popup__submit-button">Сохранить</button>
         </form>
       </section>
