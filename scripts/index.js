@@ -181,6 +181,51 @@ function activateLike(event) {
   event.target.classList.toggle("element__like-button_active");
 }
 
+//==========================validation=====================================
+
+
+
+
+const checkInputValidity = (formElement, inputElement) => {
+  if (!inputElement.validity.valid) {
+    showInputError(formElement, inputElement, inputElement.validationMessage);
+  } else {
+    hideInputError(formElement, inputElement);
+  }
+};
+
+const hasInvalidInput = (inputList) => {
+  return inputList.some((inputElement) => {
+    return !inputElement.valididty.valid;
+  });
+};
+
+const toggleButtonState = (inputList, buttonElement) => {
+  if (hasInvalidInput(inputList)) {
+    buttonElement.classList.add('.popup__submit-button_inactive');
+  } else {
+    buttonElement.classList.remove('.popup__submit-button_inactive');
+  }
+};
+
+const setEventListeners = (formElement) => {
+  const inputList = Array.from(formElement.querySelectorAll('.input'));
+  const buttonElement = formElement.querySelector('.popup__submit-button');
+  toggleButtonState(inputList, buttonElement);
+  inputList.forEach(inputElement => {
+    inputElement.addEventListener('input', () => {
+      checkInputValidity(formElement, inputElement);
+      toggleButtonState(inputList, buttonElement);
+    });
+  });
+};
+
 const enableValidation = () => {
   const formList = Array.from(document.querySelectorAll('.form'));
-}
+  formList.forEach(formElement => {
+    formElement.addEventListener('submit', evt => {
+      evt.preventDefault();
+    });
+    setEventListeners(formElement);
+  });
+};
