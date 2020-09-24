@@ -97,6 +97,13 @@ const enableValidation = (obj) => {
 
 enableValidation(selectors);
 
+function validate(name, obj) {
+  const currentInputs = name.querySelectorAll(obj.input);
+  currentInputs.forEach(elem => {
+    checkInputValidity(name.firstElementChild, elem, obj);
+  })
+}
+
 //==========================open/close-popup==================================
 
 function togglePopup(name) {
@@ -111,13 +118,6 @@ function changePopupContent(popup) {
 
 function popupIsOpened(name) {
   return name.classList.contains("popup_opened");
-}
-
-function validate(name, obj) {
-  const currentInputs = name.querySelectorAll(obj.input);
-  currentInputs.forEach(elem => {
-    checkInputValidity(name.firstElementChild, elem, obj);
-  })
 }
 
 function openPopup(name) {
