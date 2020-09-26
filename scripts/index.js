@@ -27,7 +27,7 @@ const choosePopup = (popupName) => {
   const submitButton = editForm.querySelector(".popup__submit-button");
 
   return { firstLine, secondLine, submitButton };
-}
+};
 
 //==========================validation=====================================
 
@@ -40,33 +40,35 @@ const selectors = {
   errorVisible: "popup__input-error_visible",
 };
 
-const showError = (currentInput, popup, obj) => {
+const showError = (currentInput, popup, selectorsObject) => {
   const errorElement = popup.querySelector(`.${currentInput.id}-error`);
-  currentInput.classList.add(obj.inputError);
+  currentInput.classList.add(selectorsObject.inputError);
   errorElement.textContent = currentInput.validationMessage;
-  errorElement.classList.add(obj.errorVisible);
+  errorElement.classList.add(selectorsObject.errorVisible);
 };
 
-const hideError = (currentInput, popup, obj) => {
+const hideError = (currentInput, popup, selectorsObject) => {
   const errorElement = popup.querySelector(`.${currentInput.id}-error`);
-  currentInput.classList.remove(obj.inputError);
+  currentInput.classList.remove(selectorsObject.inputError);
   errorElement.textContent = "";
-  errorElement.classList.remove(obj.errorVisible);
+  errorElement.classList.remove(selectorsObject.errorVisible);
 };
 
-const checkInputValidity = (currentInput, currentPopup, obj) => {
+const checkInputValidity = (currentInput, currentPopup, selectorsObject) => {
   if (!currentInput.validity.valid) {
-    showError(currentInput, currentPopup, obj);
+    showError(currentInput, currentPopup, selectorsObject);
   } else {
-    hideError(currentInput, currentPopup, obj);
+    hideError(currentInput, currentPopup, selectorsObject);
   }
 };
 
-const validate = (popup, obj) => {
+const validate = (popup, selectorsObject) => {
   const currentPopup = popup;
-  const inputList = Array.from(currentPopup.querySelectorAll(obj.input));
+  const inputList = Array.from(
+    currentPopup.querySelectorAll(selectorsObject.input)
+  );
   inputList.forEach((currentInput) => {
-    checkInputValidity(currentInput, currentPopup, obj);
+    checkInputValidity(currentInput, currentPopup, selectorsObject);
   });
 };
 
@@ -76,34 +78,34 @@ const hasInvalidInput = (inputList) => {
   });
 };
 
-const toggleButtonState = (popup, obj) => {
-  const buttonElement = popup.querySelector(obj.submitButton);
-  const inputList = Array.from(popup.querySelectorAll(obj.input));
+const toggleButtonState = (popup, selectorsObject) => {
+  const buttonElement = popup.querySelector(selectorsObject.submitButton);
+  const inputList = Array.from(popup.querySelectorAll(selectorsObject.input));
 
   if (hasInvalidInput(inputList)) {
     buttonElement.setAttribute("disabled", "true");
-    buttonElement.classList.add(obj.inactiveButton);
+    buttonElement.classList.add(selectorsObject.inactiveButton);
   } else {
-    buttonElement.classList.remove(obj.inactiveButton);
+    buttonElement.classList.remove(selectorsObject.inactiveButton);
     buttonElement.removeAttribute("disabled");
   }
 };
 
-const setListeners = (popup, obj) => {
+const setListeners = (popup, selectorsObject) => {
   const currentPopup = popup;
-  const form = currentPopup.querySelector(obj.form);
-  const inputList = Array.from(form.querySelectorAll(obj.input));
+  const form = currentPopup.querySelector(selectorsObject.form);
+  const inputList = Array.from(form.querySelectorAll(selectorsObject.input));
   inputList.forEach((currentInput) => {
     currentInput.addEventListener("input", () => {
-      checkInputValidity(currentInput, currentPopup, obj);
-      toggleButtonState(currentPopup, obj);
+      checkInputValidity(currentInput, currentPopup, selectorsObject);
+      toggleButtonState(currentPopup, selectorsObject);
     });
   });
 };
 
-const enableValidation = (popupsObject, obj) => {
+const enableValidation = (popupsObject, selectorsObject) => {
   Object.values(popupsObject).forEach((popup) => {
-    setListeners(popup, obj);
+    setListeners(popup, selectorsObject);
   });
 };
 
@@ -113,13 +115,13 @@ enableValidation(popupsWithForm, selectors);
 
 const togglePopup = (popup) => {
   popup.classList.toggle("popup_opened");
-}
+};
 
 const changePopupContent = (popup) => {
   const currentPopup = choosePopup(popup);
   currentPopup.firstLine.value = profileName.textContent;
   currentPopup.secondLine.value = profileBio.textContent;
-}
+};
 
 const setEscClosingListener = (popup) => {
   const closePopup = (evt) => {
@@ -127,14 +129,14 @@ const setEscClosingListener = (popup) => {
       togglePopup(popup);
       document.removeEventListener("keyup", closePopup);
     }
-  }
+  };
   document.addEventListener("keyup", closePopup);
-}
+};
 
 const openPopup = (popup) => {
   togglePopup(popup);
   setEscClosingListener(popup);
-}
+};
 
 editProfileButton.addEventListener("click", () => {
   changePopupContent(editProfilePopup);
@@ -166,7 +168,7 @@ popupsArray.forEach((el) => {
 const clearInputs = (input) => {
   input.firstLine.value = "";
   input.secondLine.value = "";
-}
+};
 
 const addPlace = (evt) => {
   const currentPopup = choosePopup(addPlacePopup);
@@ -179,7 +181,7 @@ const addPlace = (evt) => {
   elements.prepend(initializeCard(newCard));
   togglePopup(addPlacePopup);
   clearInputs(currentPopup);
-} //edited
+}; //edited
 
 addPlacePopup.addEventListener("submit", addPlace);
 
@@ -191,7 +193,7 @@ const editProfile = (evt) => {
   profileName.textContent = currentPopup.firstLine.value;
   profileBio.textContent = currentPopup.secondLine.value;
   togglePopup(editProfilePopup);
-}
+};
 
 editProfilePopup.addEventListener("submit", editProfile);
 addPlacePopup.addEventListener("submit", addPlace);
@@ -202,7 +204,7 @@ const openPhoto = (event) => {
   popupPicture.src = event.target.src;
   popupCaption.textContent = event.target.nextElementSibling.textContent;
   openPopup(fullsizePhotoPopup);
-}
+};
 
 //==========================template-gallery==================================
 
@@ -250,13 +252,13 @@ const elements = document.querySelector(".elements");
 
 const removePlace = (event) => {
   event.target.closest(".element").remove();
-}
+};
 
 //==========================like===========================================
 
 const activateLike = (event) => {
   event.target.classList.toggle("element__like-button_active");
-}
+};
 
 //==========================render-cards===================================
 
@@ -276,13 +278,12 @@ const initializeCard = (card) => {
   likeButton.addEventListener("click", activateLike);
 
   return templateContent;
-}
+};
 
 const renderCards = () => {
   placeCards.forEach((card) => {
     elements.prepend(initializeCard(card));
   });
-}
+};
 
 renderCards(); //edited
-
