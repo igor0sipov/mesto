@@ -13,7 +13,12 @@ const editProfilePopup = document.querySelector(".edit-profile");
 const addPlacePopup = document.querySelector(".add-place");
 const fullsizePhotoPopup = document.querySelector(".fullsize-picture"); // edited
 
-const popups = document.querySelectorAll(".popup");
+const popupsArray = Array.from(document.querySelectorAll(".popup"));
+
+const popupsWithForm = {
+  editProfilePopup,
+  addPlacePopup,
+};
 
 function choosePopup(popupName) {
   const editForm = popupName.querySelector(".popup__container");
@@ -110,41 +115,56 @@ const selectors = {
 
 // enableValidation(selectors);
 //------------------------------------------------------------------------------------------------------------------------
-// const formList = Array.from(document.querySelectorAll(selectors.form));
-// const inputList = Array.from(document.querySelectorAll(selectors.input));
-// const buttonElement = Array.from(
-//   document.querySelectorAll(selectors.submitButton)
-// );
-// // const errorElement = Array.from(document.querySelector(`.${inputElement.id}-error`));
 
-// const setEventListeners = (formElement, obj) => {
-//   inputList.forEach((inputElement) => {
-//     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-//     inputElement.addEventListener("input", () => {
-//       if (!inputElement.validity.valid) {
-//         inputElement.classList.add(obj.inputError);
-//         errorElement.textContent = inputElement.validationMessage;
-//         errorElement.classList.add(obj.error);
-//       } else {
-//         inputElement.classList.remove(obj.inputError);
-//         errorElement.classList.remove(obj.error);
-//         errorElement.textContent = "";
-//       }
-//     });
-//   });
-// };
+const showError = (currentInput, name) => {
+  const errorElement = name.querySelector(`.${currentInput.id}-error`);
+  currentInput.classList.add("input_type_error");
+  errorElement.textContent = currentInput.validationMessage;
+  errorElement.classList.add("popup__input-error_visible");
+};
 
-// const enableValidation = (obj) => {
-//   formList.forEach((formElement) => {
-//     formElement.addEventListener("submit", (evt) => {
-//       evt.preventDefault();
-//     });
-//     setEventListeners(formElement, obj);
-//   });
+const hideError = (currentInput, name) => {
+  const errorElement = name.querySelector(`.${currentInput.id}-error`);
+  currentInput.classList.remove("input_type_error");
+  errorElement.textContent = "";
+  errorElement.classList.remove("popup__input-error_visible");
+};
 
-// };
+const checkInputValidity = (currentInput, currentPopup) => {
+  if (!currentInput.validity.valid) {
+    showError(currentInput, currentPopup);
+  } else {
+    hideError(currentInput, currentPopup);
+  }
+};
 
-// enableValidation(selectors);
+const validate = (name) => {
+  const currentPopup = name;
+  const inputList = Array.from(currentPopup.querySelectorAll(".input"));
+  inputList.forEach((currentInput) => {
+    checkInputValidity(currentInput, currentPopup);
+  });
+};
+
+const setListeners = (name) => {
+  const currentPopup = name;
+  const form = currentPopup.querySelector(".form");
+  const inputList = Array.from(form.querySelectorAll(".input"));
+
+  inputList.forEach((currentInput) => {
+    currentInput.addEventListener("input", () => {
+      checkInputValidity(currentInput, currentPopup);
+    });
+  });
+};
+
+const enableValidation = (popupsObject) => {
+  Object.values(popupsObject).forEach((name) => {
+    setListeners(name);
+  });
+};
+
+enableValidation(popupsWithForm);
 
 //==========================open/close-popup==================================
 
@@ -162,10 +182,10 @@ function setEscClosingListener(name) {
   function closePopup(evt) {
     if (evt.key == "Escape") {
       togglePopup(name);
-      document.removeEventListener('keyup', closePopup);
+      document.removeEventListener("keyup", closePopup);
     }
   }
-  document.addEventListener('keyup', closePopup);
+  document.addEventListener("keyup", closePopup);
 }
 
 function openPopup(name) {
@@ -175,17 +195,19 @@ function openPopup(name) {
 
 editProfileButton.addEventListener("click", () => {
   // validateManually(editProfilePopup, selectors);
-  changePopupContent(editProfilePopup)
+  changePopupContent(editProfilePopup);
+  validate(editProfilePopup);
   openPopup(editProfilePopup);
 });
 addPlaceButton.addEventListener("click", () => {
   // disableButtonManually(addPlacePopup, selectors);
+  validate(addPlacePopup);
   openPopup(addPlacePopup);
 });
 
 //==========================closing-listeners==================================
 
-popups.forEach((el) => {
+popupsArray.forEach((el) => {
   const closeButton = el.querySelector(".popup__close-icon");
   closeButton.addEventListener("click", () => togglePopup(el));
 
