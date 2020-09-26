@@ -7,8 +7,6 @@ const profileBio = document.querySelector(".profile__bio");
 const popupPicture = document.querySelector(".popup__picture");
 const popupCaption = document.querySelector(".popup__caption");
 
-const template = document.querySelector(".card-template");
-
 const editProfilePopup = document.querySelector(".edit-profile");
 const addPlacePopup = document.querySelector(".add-place");
 const fullsizePhotoPopup = document.querySelector(".fullsize-picture"); // edited
@@ -123,21 +121,76 @@ const changePopupContent = (popup) => {
   currentPopup.secondLine.value = profileBio.textContent;
 };
 
-const setEscClosingListener = (popup) => {
-  const closePopup = (evt) => {
+const clearInputs = (input) => {
+  input.firstLine.value = "";
+  input.secondLine.value = "";
+};
+
+const setClosingListeners = (popup) => {
+  const closeButton = popup.querySelector(".popup__close-icon");
+
+  const removeListeners = () => {
+    document.removeEventListener("keyup", closePopupByEsc);
+    closeButton.removeEventListener("click", closePopupByButton);
+    popup.removeEventListener("click", closePopupByOverlay);
+    addPlacePopup.removeEventListener("submit", addPlace);
+    editProfilePopup.removeEventListener("submit", editProfile);
+  };
+
+  const closePopupByEsc = (evt) => {
     if (evt.key == "Escape") {
       togglePopup(popup);
-      document.removeEventListener("keyup", closePopup);
-      popup.removeEventListener('keyup', closePopup)
+      removeListeners();
     }
+    return;
   };
-  document.addEventListener("keyup", closePopup);
-  popup.addEventListener('keyup', closePopup)
+
+  const closePopupByButton = () => {
+    togglePopup(popup);
+    removeListeners();
+  };
+
+  const closePopupByOverlay = (evt) => {
+    if (evt.target !== evt.currentTarget) {
+      return;
+    }
+    togglePopup(popup);
+    removeListeners();
+  };
+
+  const addPlace = (evt) => {
+    const currentPopup = choosePopup(addPlacePopup);
+    evt.preventDefault();
+    const newCard = {
+      title: currentPopup.firstLine.value,
+      image: currentPopup.secondLine.value,
+      alt: currentPopup.firstLine.value,
+    };
+    elements.prepend(initializeCard(newCard));
+    togglePopup(addPlacePopup);
+    clearInputs(currentPopup);
+    removeListeners();
+  };
+
+  const editProfile = (evt) => {
+    const currentPopup = choosePopup(editProfilePopup);
+    evt.preventDefault();
+    profileName.textContent = currentPopup.firstLine.value;
+    profileBio.textContent = currentPopup.secondLine.value;
+    togglePopup(editProfilePopup);
+    removeListeners();
+  };
+
+  document.addEventListener("keyup", closePopupByEsc);
+  closeButton.addEventListener("click", closePopupByButton);
+  popup.addEventListener("click", closePopupByOverlay);
+  addPlacePopup.addEventListener("submit", addPlace);
+  editProfilePopup.addEventListener("submit", editProfile);
 };
 
 const openPopup = (popup) => {
   togglePopup(popup);
-  setEscClosingListener(popup);
+  setClosingListeners(popup);
 };
 
 editProfileButton.addEventListener("click", () => {
@@ -146,59 +199,11 @@ editProfileButton.addEventListener("click", () => {
   toggleButtonState(editProfilePopup, selectors);
   openPopup(editProfilePopup);
 });
+
 addPlaceButton.addEventListener("click", () => {
   toggleButtonState(addPlacePopup, selectors);
   openPopup(addPlacePopup);
 });
-
-//==========================closing-listeners==================================
-
-popupsArray.forEach((el) => {
-  const closeButton = el.querySelector(".popup__close-icon");
-  closeButton.addEventListener("click", () => togglePopup(el));
-
-  el.addEventListener("click", (event) => {
-    if (event.target !== event.currentTarget) {
-      return;
-    }
-    togglePopup(el);
-  });
-});
-
-//==========================adding-new-pics==================================
-
-const clearInputs = (input) => {
-  input.firstLine.value = "";
-  input.secondLine.value = "";
-};
-
-const addPlace = (evt) => {
-  const currentPopup = choosePopup(addPlacePopup);
-  evt.preventDefault();
-  const newCard = {
-    title: currentPopup.firstLine.value,
-    image: currentPopup.secondLine.value,
-    alt: currentPopup.firstLine.value,
-  };
-  elements.prepend(initializeCard(newCard));
-  togglePopup(addPlacePopup);
-  clearInputs(currentPopup);
-}; //edited
-
-addPlacePopup.addEventListener("submit", addPlace);
-
-//==========================editProfilePopup-content==================================
-
-const editProfile = (evt) => {
-  const currentPopup = choosePopup(editProfilePopup);
-  evt.preventDefault();
-  profileName.textContent = currentPopup.firstLine.value;
-  profileBio.textContent = currentPopup.secondLine.value;
-  togglePopup(editProfilePopup);
-};
-
-editProfilePopup.addEventListener("submit", editProfile);
-addPlacePopup.addEventListener("submit", addPlace);
 
 //==========================fullsize-photo-opening==================================
 
@@ -265,6 +270,7 @@ const activateLike = (event) => {
 //==========================render-cards===================================
 
 const initializeCard = (card) => {
+  const template = document.querySelector(".card-template");
   const templateContent = template.content.cloneNode(true);
   const elementName = templateContent.querySelector(".element__name");
   const elementPicture = templateContent.querySelector(".element__picture");
