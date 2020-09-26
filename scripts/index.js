@@ -128,9 +128,11 @@ const setEscClosingListener = (popup) => {
     if (evt.key == "Escape") {
       togglePopup(popup);
       document.removeEventListener("keyup", closePopup);
+      popup.removeEventListener('keyup', closePopup)
     }
   };
   document.addEventListener("keyup", closePopup);
+  popup.addEventListener('keyup', closePopup)
 };
 
 const openPopup = (popup) => {
