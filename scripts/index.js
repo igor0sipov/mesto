@@ -37,36 +37,36 @@ const selectors = {
   submitButton: ".popup__submit-button",
   inactiveButton: "popup__submit-button_disabled",
   inputError: "input_type_error",
-  error: "popup__input-error_visible",
+  errorVisible: "popup__input-error_visible",
 };
 
-const showError = (currentInput, name) => {
-  const errorElement = name.querySelector(`.${currentInput.id}-error`);
-  currentInput.classList.add("input_type_error");
+const showError = (currentInput, popup, obj) => {
+  const errorElement = popup.querySelector(`.${currentInput.id}-error`);
+  currentInput.classList.add(obj.inputError);
   errorElement.textContent = currentInput.validationMessage;
-  errorElement.classList.add("popup__input-error_visible");
+  errorElement.classList.add(obj.errorVisible);
 };
 
-const hideError = (currentInput, name) => {
-  const errorElement = name.querySelector(`.${currentInput.id}-error`);
-  currentInput.classList.remove("input_type_error");
+const hideError = (currentInput, popup, obj) => {
+  const errorElement = popup.querySelector(`.${currentInput.id}-error`);
+  currentInput.classList.remove(obj.inputError);
   errorElement.textContent = "";
-  errorElement.classList.remove("popup__input-error_visible");
+  errorElement.classList.remove(obj.errorVisible);
 };
 
-const checkInputValidity = (currentInput, currentPopup) => {
+const checkInputValidity = (currentInput, currentPopup, obj) => {
   if (!currentInput.validity.valid) {
-    showError(currentInput, currentPopup);
+    showError(currentInput, currentPopup, obj);
   } else {
-    hideError(currentInput, currentPopup);
+    hideError(currentInput, currentPopup, obj);
   }
 };
 
-const validate = (name) => {
-  const currentPopup = name;
-  const inputList = Array.from(currentPopup.querySelectorAll(".input"));
+const validate = (popup, obj) => {
+  const currentPopup = popup;
+  const inputList = Array.from(currentPopup.querySelectorAll(obj.input));
   inputList.forEach((currentInput) => {
-    checkInputValidity(currentInput, currentPopup);
+    checkInputValidity(currentInput, currentPopup, obj);
   });
 };
 
@@ -76,43 +76,43 @@ const hasInvalidInput = (inputList) => {
   });
 };
 
-const toggleButtonState = (name) => {
-  const buttonElement = name.querySelector(".popup__submit-button");
-  const inputList = Array.from(name.querySelectorAll(".input"));
+const toggleButtonState = (popup, obj) => {
+  const buttonElement = popup.querySelector(obj.submitButton);
+  const inputList = Array.from(popup.querySelectorAll(obj.input));
 
   if (hasInvalidInput(inputList)) {
     buttonElement.setAttribute("disabled", "true");
-    buttonElement.classList.add("popup__submit-button_disabled");
+    buttonElement.classList.add(obj.inactiveButton);
   } else {
-    buttonElement.classList.remove("popup__submit-button_disabled");
+    buttonElement.classList.remove(obj.inactiveButton);
     buttonElement.removeAttribute("disabled");
   }
 };
 
-const setListeners = (name) => {
-  const currentPopup = name;
-  const form = currentPopup.querySelector(".form");
-  const inputList = Array.from(form.querySelectorAll(".input"));
+const setListeners = (popup, obj) => {
+  const currentPopup = popup;
+  const form = currentPopup.querySelector(obj.form);
+  const inputList = Array.from(form.querySelectorAll(obj.input));
   inputList.forEach((currentInput) => {
     currentInput.addEventListener("input", () => {
-      checkInputValidity(currentInput, currentPopup);
-      toggleButtonState(currentPopup);
+      checkInputValidity(currentInput, currentPopup, obj);
+      toggleButtonState(currentPopup, obj);
     });
   });
 };
 
-const enableValidation = (popupsObject) => {
-  Object.values(popupsObject).forEach((name) => {
-    setListeners(name);
+const enableValidation = (popupsObject, obj) => {
+  Object.values(popupsObject).forEach((popup) => {
+    setListeners(popup, obj);
   });
 };
 
-enableValidation(popupsWithForm);
+enableValidation(popupsWithForm, selectors);
 
 //==========================open/close-popup==================================
 
-const togglePopup = (name) => {
-  name.classList.toggle("popup_opened");
+const togglePopup = (popup) => {
+  popup.classList.toggle("popup_opened");
 }
 
 const changePopupContent = (popup) => {
@@ -121,29 +121,29 @@ const changePopupContent = (popup) => {
   currentPopup.secondLine.value = profileBio.textContent;
 }
 
-const setEscClosingListener = (name) => {
+const setEscClosingListener = (popup) => {
   const closePopup = (evt) => {
     if (evt.key == "Escape") {
-      togglePopup(name);
+      togglePopup(popup);
       document.removeEventListener("keyup", closePopup);
     }
   }
   document.addEventListener("keyup", closePopup);
 }
 
-const openPopup = (name) => {
-  togglePopup(name);
-  setEscClosingListener(name);
+const openPopup = (popup) => {
+  togglePopup(popup);
+  setEscClosingListener(popup);
 }
 
 editProfileButton.addEventListener("click", () => {
   changePopupContent(editProfilePopup);
-  validate(editProfilePopup);
-  toggleButtonState(editProfilePopup);
+  validate(editProfilePopup, selectors);
+  toggleButtonState(editProfilePopup, selectors);
   openPopup(editProfilePopup);
 });
 addPlaceButton.addEventListener("click", () => {
-  toggleButtonState(addPlacePopup);
+  toggleButtonState(addPlacePopup, selectors);
   openPopup(addPlacePopup);
 });
 
