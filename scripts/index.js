@@ -13,6 +13,8 @@ const fullsizePhotoPopup = document.querySelector(".fullsize-picture"); // edite
 
 const popupsArray = Array.from(document.querySelectorAll(".popup"));
 
+const template = document.querySelector(".card-template");
+
 const popupsWithForm = {
   editProfilePopup,
   addPlacePopup,
@@ -113,6 +115,9 @@ enableValidation(popupsWithForm, selectors);
 
 const togglePopup = (popup) => {
   popup.classList.toggle("popup_opened");
+  if (popup.classList.contains('popup_opened')) {
+    setClosingListeners(popup);
+  }
 };
 
 const changePopupContent = (popup) => {
@@ -188,21 +193,16 @@ const setClosingListeners = (popup) => {
   editProfilePopup.addEventListener("submit", editProfile);
 };
 
-const openPopup = (popup) => {
-  togglePopup(popup);
-  setClosingListeners(popup);
-};
-
 editProfileButton.addEventListener("click", () => {
   changePopupContent(editProfilePopup);
   validate(editProfilePopup, selectors);
   toggleButtonState(editProfilePopup, selectors);
-  openPopup(editProfilePopup);
+  togglePopup(editProfilePopup);
 });
 
 addPlaceButton.addEventListener("click", () => {
   toggleButtonState(addPlacePopup, selectors);
-  openPopup(addPlacePopup);
+  togglePopup(addPlacePopup);
 });
 
 //==========================fullsize-photo-opening==================================
@@ -210,7 +210,7 @@ addPlaceButton.addEventListener("click", () => {
 const openPhoto = (event) => {
   popupPicture.src = event.target.src;
   popupCaption.textContent = event.target.nextElementSibling.textContent;
-  openPopup(fullsizePhotoPopup);
+  togglePopup(fullsizePhotoPopup);
 };
 
 //==========================template-gallery==================================
@@ -270,7 +270,7 @@ const activateLike = (event) => {
 //==========================render-cards===================================
 
 const initializeCard = (card) => {
-  const template = document.querySelector(".card-template");
+
   const templateContent = template.content.cloneNode(true);
   const elementName = templateContent.querySelector(".element__name");
   const elementPicture = templateContent.querySelector(".element__picture");
