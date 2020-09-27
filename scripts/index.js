@@ -112,11 +112,13 @@ const enableValidation = (popupsObject, selectorsObject) => {
 enableValidation(popupsWithForm, selectors);
 
 //==========================open/close-popup==================================
-
 const togglePopup = (popup) => {
   popup.classList.toggle("popup_opened");
-  if (popup.classList.contains('popup_opened')) {
+
+  if (popup.classList.contains("popup_opened")) {
     setClosingListeners(popup);
+  } else {
+    popup.removeListeners();
   }
 };
 
@@ -134,7 +136,7 @@ const clearInputs = (input) => {
 const setClosingListeners = (popup) => {
   const closeButton = popup.querySelector(".popup__close-icon");
 
-  const removeListeners = () => {
+  popup.removeListeners = () => {
     document.removeEventListener("keyup", closePopupByEsc);
     closeButton.removeEventListener("click", closePopupByButton);
     popup.removeEventListener("click", closePopupByOverlay);
@@ -145,14 +147,12 @@ const setClosingListeners = (popup) => {
   const closePopupByEsc = (evt) => {
     if (evt.key == "Escape") {
       togglePopup(popup);
-      removeListeners();
     }
     return;
   };
 
   const closePopupByButton = () => {
     togglePopup(popup);
-    removeListeners();
   };
 
   const closePopupByOverlay = (evt) => {
@@ -160,7 +160,6 @@ const setClosingListeners = (popup) => {
       return;
     }
     togglePopup(popup);
-    removeListeners();
   };
 
   const addPlace = (evt) => {
@@ -174,7 +173,6 @@ const setClosingListeners = (popup) => {
     elements.prepend(initializeCard(newCard));
     togglePopup(addPlacePopup);
     clearInputs(currentPopup);
-    removeListeners();
   };
 
   const editProfile = (evt) => {
@@ -183,7 +181,6 @@ const setClosingListeners = (popup) => {
     profileName.textContent = currentPopup.firstLine.value;
     profileBio.textContent = currentPopup.secondLine.value;
     togglePopup(editProfilePopup);
-    removeListeners();
   };
 
   document.addEventListener("keyup", closePopupByEsc);
@@ -191,6 +188,7 @@ const setClosingListeners = (popup) => {
   popup.addEventListener("click", closePopupByOverlay);
   addPlacePopup.addEventListener("submit", addPlace);
   editProfilePopup.addEventListener("submit", editProfile);
+
 };
 
 editProfileButton.addEventListener("click", () => {
@@ -270,7 +268,6 @@ const activateLike = (event) => {
 //==========================render-cards===================================
 
 const initializeCard = (card) => {
-
   const templateContent = template.content.cloneNode(true);
   const elementName = templateContent.querySelector(".element__name");
   const elementPicture = templateContent.querySelector(".element__picture");
