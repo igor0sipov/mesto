@@ -13,7 +13,10 @@ const fullsizePhotoPopup = document.querySelector(".fullsize-picture"); // edite
 
 const popupsArray = Array.from(document.querySelectorAll(".popup"));
 
-const template = document.querySelector(".card-template");
+
+
+// const template = document.querySelector(".card-template");
+
 
 const popupsWithForm = {
   editProfilePopup,
@@ -31,6 +34,7 @@ const choosePopup = (popupName) => {
 
 //==========================validation=====================================
 
+
 const selectors = {
   form: ".form",
   input: ".input",
@@ -40,76 +44,87 @@ const selectors = {
   errorVisible: "popup__input-error_visible",
 };
 
-const showError = (currentInput, popup, selectorsObject) => {
-  const errorElement = popup.querySelector(`.${currentInput.id}-error`);
-  currentInput.classList.add(selectorsObject.inputError);
-  errorElement.textContent = currentInput.validationMessage;
-  errorElement.classList.add(selectorsObject.errorVisible);
-};
 
-const hideError = (currentInput, popup, selectorsObject) => {
-  const errorElement = popup.querySelector(`.${currentInput.id}-error`);
-  currentInput.classList.remove(selectorsObject.inputError);
-  errorElement.textContent = "";
-  errorElement.classList.remove(selectorsObject.errorVisible);
-};
+const formList = Array.from(document.querySelectorAll('.popup__container'));
 
-const checkInputValidity = (currentInput, currentPopup, selectorsObject) => {
-  if (!currentInput.validity.valid) {
-    showError(currentInput, currentPopup, selectorsObject);
-  } else {
-    hideError(currentInput, currentPopup, selectorsObject);
-  }
-};
+import {FormValidator} from './FormValidator.js';
 
-const validate = (popup, selectorsObject) => {
-  const currentPopup = popup;
-  const inputList = Array.from(
-    currentPopup.querySelectorAll(selectorsObject.input)
-  );
-  inputList.forEach((currentInput) => {
-    checkInputValidity(currentInput, currentPopup, selectorsObject);
-  });
-};
+formList.forEach(item => {
+  const form = new FormValidator(selectors, item);
+  form.enableValidation();
+})
 
-const hasInvalidInput = (inputList) => {
-  return inputList.some((inputElement) => {
-    return !inputElement.validity.valid;
-  });
-};
 
-const toggleButtonState = (popup, selectorsObject) => {
-  const buttonElement = popup.querySelector(selectorsObject.submitButton);
-  const inputList = Array.from(popup.querySelectorAll(selectorsObject.input));
+// const showError = (currentInput, popup, selectorsObject) => {
+//   const errorElement = popup.querySelector(`.${currentInput.id}-error`);
+//   currentInput.classList.add(selectorsObject.inputError);
+//   errorElement.textContent = currentInput.validationMessage;
+//   errorElement.classList.add(selectorsObject.errorVisible);
+// };
 
-  if (hasInvalidInput(inputList)) {
-    buttonElement.setAttribute("disabled", "true");
-    buttonElement.classList.add(selectorsObject.inactiveButton);
-  } else {
-    buttonElement.classList.remove(selectorsObject.inactiveButton);
-    buttonElement.removeAttribute("disabled");
-  }
-};
+// const hideError = (currentInput, popup, selectorsObject) => {
+//   const errorElement = popup.querySelector(`.${currentInput.id}-error`);
+//   currentInput.classList.remove(selectorsObject.inputError);
+//   errorElement.textContent = "";
+//   errorElement.classList.remove(selectorsObject.errorVisible);
+// };
 
-const setListeners = (popup, selectorsObject) => {
-  const currentPopup = popup;
-  const form = currentPopup.querySelector(selectorsObject.form);
-  const inputList = Array.from(form.querySelectorAll(selectorsObject.input));
-  inputList.forEach((currentInput) => {
-    currentInput.addEventListener("input", () => {
-      checkInputValidity(currentInput, currentPopup, selectorsObject);
-      toggleButtonState(currentPopup, selectorsObject);
-    });
-  });
-};
+// const checkInputValidity = (currentInput, currentPopup, selectorsObject) => {
+//   if (!currentInput.validity.valid) {
+//     showError(currentInput, currentPopup, selectorsObject);
+//   } else {
+//     hideError(currentInput, currentPopup, selectorsObject);
+//   }
+// };
 
-const enableValidation = (popupsObject, selectorsObject) => {
-  Object.values(popupsObject).forEach((popup) => {
-    setListeners(popup, selectorsObject);
-  });
-};
+// const validate = (popup, selectorsObject) => {
+//   const currentPopup = popup;
+//   const inputList = Array.from(
+//     currentPopup.querySelectorAll(selectorsObject.input)
+//   );
+//   inputList.forEach((currentInput) => {
+//     checkInputValidity(currentInput, currentPopup, selectorsObject);
+//   });
+// };
 
-enableValidation(popupsWithForm, selectors);
+// const hasInvalidInput = (inputList) => {
+//   return inputList.some((inputElement) => {
+//     return !inputElement.validity.valid;
+//   });
+// };
+
+// const toggleButtonState = (popup, selectorsObject) => {
+//   const buttonElement = popup.querySelector(selectorsObject.submitButton);
+//   const inputList = Array.from(popup.querySelectorAll(selectorsObject.input));
+
+//   if (hasInvalidInput(inputList)) {
+//     buttonElement.setAttribute("disabled", "true");
+//     buttonElement.classList.add(selectorsObject.inactiveButton);
+//   } else {
+//     buttonElement.classList.remove(selectorsObject.inactiveButton);
+//     buttonElement.removeAttribute("disabled");
+//   }
+// };
+
+// const setListeners = (popup, selectorsObject) => {
+//   const currentPopup = popup;
+//   const form = currentPopup.querySelector(selectorsObject.form);
+//   const inputList = Array.from(form.querySelectorAll(selectorsObject.input));
+//   inputList.forEach((currentInput) => {
+//     currentInput.addEventListener("input", () => {
+//       checkInputValidity(currentInput, currentPopup, selectorsObject);
+//       toggleButtonState(currentPopup, selectorsObject);
+//     });
+//   });
+// };
+
+// const enableValidation = (popupsObject, selectorsObject) => {
+//   Object.values(popupsObject).forEach((popup) => {
+//     setListeners(popup, selectorsObject);
+//   });
+// };
+
+// enableValidation(popupsWithForm, selectors);
 
 //==========================open/close-popup==================================
 const togglePopup = (popup) => {
@@ -193,13 +208,13 @@ const setClosingListeners = (popup) => {
 
 editProfileButton.addEventListener("click", () => {
   changePopupContent(editProfilePopup);
-  validate(editProfilePopup, selectors);
-  toggleButtonState(editProfilePopup, selectors);
+  // validate(editProfilePopup, selectors);
+  // toggleButtonState(editProfilePopup, selectors);
   togglePopup(editProfilePopup);
 });
 
 addPlaceButton.addEventListener("click", () => {
-  toggleButtonState(addPlacePopup, selectors);
+  // toggleButtonState(addPlacePopup, selectors);
   togglePopup(addPlacePopup);
 });
 
@@ -252,42 +267,47 @@ const placeCards = [
   },
 ];
 const elements = document.querySelector(".elements");
+import Card from './Card.js';
+// //==========================deleting-pics==================================
 
-//==========================deleting-pics==================================
+// const removePlace = (event) => {
+//   event.target.closest(".element").remove();
+// };
 
-const removePlace = (event) => {
-  event.target.closest(".element").remove();
-};
+// //==========================like===========================================
 
-//==========================like===========================================
+// const activateLike = (event) => {
+//   event.target.classList.toggle("element__like-button_active");
+// };
 
-const activateLike = (event) => {
-  event.target.classList.toggle("element__like-button_active");
-};
+// //==========================render-cards===================================
 
-//==========================render-cards===================================
+// const initializeCard = (card) => {
+//   const templateContent = template.content.cloneNode(true);
+//   const elementName = templateContent.querySelector(".element__name");
+//   const elementPicture = templateContent.querySelector(".element__picture");
+//   const deleteButton = templateContent.querySelector(".element__delete-button");
+//   const likeButton = templateContent.querySelector(".element__like-button");
 
-const initializeCard = (card) => {
-  const templateContent = template.content.cloneNode(true);
-  const elementName = templateContent.querySelector(".element__name");
-  const elementPicture = templateContent.querySelector(".element__picture");
-  const deleteButton = templateContent.querySelector(".element__delete-button");
-  const likeButton = templateContent.querySelector(".element__like-button");
+//   elementName.textContent = card.title;
+//   elementPicture.src = card.image;
+//   elementPicture.alt = card.alt;
 
-  elementName.textContent = card.title;
-  elementPicture.src = card.image;
-  elementPicture.alt = card.alt;
+//   elementPicture.addEventListener("click", openPhoto);
+//   deleteButton.addEventListener("click", removePlace);
+//   likeButton.addEventListener("click", activateLike);
 
-  elementPicture.addEventListener("click", openPhoto);
-  deleteButton.addEventListener("click", removePlace);
-  likeButton.addEventListener("click", activateLike);
+//   return templateContent;
+// };
 
-  return templateContent;
-};
 
 const renderCards = () => {
-  placeCards.forEach((card) => {
-    elements.prepend(initializeCard(card));
+
+
+  placeCards.forEach((item) => {
+    const card = new Card(item, '.card-template')
+    const cardElement = card.initializeCard();
+    elements.prepend(cardElement);
   });
 };
 
