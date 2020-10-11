@@ -13,10 +13,7 @@ const fullsizePhotoPopup = document.querySelector(".fullsize-picture"); // edite
 
 const popupsArray = Array.from(document.querySelectorAll(".popup"));
 
-
-
 // const template = document.querySelector(".card-template");
-
 
 const popupsWithForm = {
   editProfilePopup,
@@ -29,11 +26,10 @@ const choosePopup = (popupName) => {
   const secondLine = editForm.querySelector(".popup__second-line");
   const submitButton = editForm.querySelector(".popup__submit-button");
 
-  return { firstLine, secondLine, submitButton };
+  return {editForm, firstLine, secondLine, submitButton };
 };
 
 //==========================validation=====================================
-
 
 const selectors = {
   form: ".form",
@@ -44,16 +40,14 @@ const selectors = {
   errorVisible: "popup__input-error_visible",
 };
 
+const formList = Array.from(document.querySelectorAll(".popup__container"));
 
-const formList = Array.from(document.querySelectorAll('.popup__container'));
+import { FormValidator } from "./FormValidator.js";
 
-import {FormValidator} from './FormValidator.js';
-
-formList.forEach(item => {
+formList.forEach((item) => {
   const form = new FormValidator(selectors, item);
   form.enableValidation();
-})
-
+});
 
 // const showError = (currentInput, popup, selectorsObject) => {
 //   const errorElement = popup.querySelector(`.${currentInput.id}-error`);
@@ -179,13 +173,15 @@ const setClosingListeners = (popup) => {
 
   const addPlace = (evt) => {
     const currentPopup = choosePopup(addPlacePopup);
+    const currentForm = currentPopup.editForm;
     evt.preventDefault();
     const newCard = {
       title: currentPopup.firstLine.value,
       image: currentPopup.secondLine.value,
       alt: currentPopup.firstLine.value,
     };
-    elements.prepend(initializeCard(newCard));
+    const card = new Card(newCard, ".card-template");
+    elements.prepend(card.initializeCard());
     togglePopup(addPlacePopup);
     clearInputs(currentPopup);
   };
@@ -203,28 +199,21 @@ const setClosingListeners = (popup) => {
   popup.addEventListener("click", closePopupByOverlay);
   addPlacePopup.addEventListener("submit", addPlace);
   editProfilePopup.addEventListener("submit", editProfile);
-
 };
 
 editProfileButton.addEventListener("click", () => {
+  const validator = new FormValidator(selectors, choosePopup(editProfilePopup).editForm);
   changePopupContent(editProfilePopup);
-  // validate(editProfilePopup, selectors);
-  // toggleButtonState(editProfilePopup, selectors);
+  validator.validate()
+  validator.toggleButtonState();
   togglePopup(editProfilePopup);
 });
 
 addPlaceButton.addEventListener("click", () => {
-  // toggleButtonState(addPlacePopup, selectors);
+  const validator = new FormValidator(selectors, choosePopup(addPlacePopup).editForm);
+  validator.toggleButtonState();
   togglePopup(addPlacePopup);
 });
-
-//==========================fullsize-photo-opening==================================
-
-const openPhoto = (event) => {
-  popupPicture.src = event.target.src;
-  popupCaption.textContent = event.target.nextElementSibling.textContent;
-  togglePopup(fullsizePhotoPopup);
-};
 
 //==========================template-gallery==================================
 
@@ -266,46 +255,13 @@ const placeCards = [
     alt: "Церковь среди деревьев в поле",
   },
 ];
+
 const elements = document.querySelector(".elements");
-import Card from './Card.js';
-// //==========================deleting-pics==================================
-
-// const removePlace = (event) => {
-//   event.target.closest(".element").remove();
-// };
-
-// //==========================like===========================================
-
-// const activateLike = (event) => {
-//   event.target.classList.toggle("element__like-button_active");
-// };
-
-// //==========================render-cards===================================
-
-// const initializeCard = (card) => {
-//   const templateContent = template.content.cloneNode(true);
-//   const elementName = templateContent.querySelector(".element__name");
-//   const elementPicture = templateContent.querySelector(".element__picture");
-//   const deleteButton = templateContent.querySelector(".element__delete-button");
-//   const likeButton = templateContent.querySelector(".element__like-button");
-
-//   elementName.textContent = card.title;
-//   elementPicture.src = card.image;
-//   elementPicture.alt = card.alt;
-
-//   elementPicture.addEventListener("click", openPhoto);
-//   deleteButton.addEventListener("click", removePlace);
-//   likeButton.addEventListener("click", activateLike);
-
-//   return templateContent;
-// };
-
+import Card from "./Card.js";
 
 const renderCards = () => {
-
-
   placeCards.forEach((item) => {
-    const card = new Card(item, '.card-template')
+    const card = new Card(item, ".card-template");
     const cardElement = card.initializeCard();
     elements.prepend(cardElement);
   });

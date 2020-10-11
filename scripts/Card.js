@@ -7,10 +7,47 @@ export default class Card {
   }
 
   _togglePopup() {
-    console.log("qwer");
-    document
-      .querySelector(".fullsize-picture")
-      .classList.toggle("popup_opened");
+    const _popup = document.querySelector(".fullsize-picture");
+    _popup.classList.toggle("popup_opened");
+
+      if(_popup.classList.contains('popup_opened')) {
+        this._setClosingListeners(_popup);
+      } else {
+        this._removeListeners();
+      }
+  }
+
+  _setClosingListeners(popup) {
+    this._removeListeners = () => {
+      document.removeEventListener("keyup", _closePopupByEsc);
+      popup
+        .querySelector(".popup__close-icon")
+        .removeEventListener("click", _closePopupByButton);
+      popup.removeEventListener("click", _closePopupByOverlay);
+    };
+
+    const _closePopupByEsc = (evt) => {
+      if (evt.key == "Escape") {
+        this._togglePopup();
+      }
+    };
+
+    const _closePopupByButton = () => {
+      this._togglePopup();
+    };
+
+    const _closePopupByOverlay = (evt) => {
+      if (evt.target !== evt.currentTarget) {
+        return;
+      }
+      this._togglePopup();
+    };
+
+    document.addEventListener("keyup", _closePopupByEsc);
+    popup
+      .querySelector(".popup__close-icon")
+      .addEventListener("click", _closePopupByButton);
+    popup.addEventListener("click", _closePopupByOverlay);
   }
 
   _openFullsizePhoto(event) {
