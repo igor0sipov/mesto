@@ -10,11 +10,11 @@ export default class Card {
     const _popup = document.querySelector(".fullsize-picture");
     _popup.classList.toggle("popup_opened");
 
-      if(_popup.classList.contains('popup_opened')) {
-        this._setClosingListeners(_popup);
-      } else {
-        this._removeListeners();
-      }
+    if (_popup.classList.contains("popup_opened")) {
+      this._setClosingListeners(_popup);
+    } else {
+      this._removeListeners();
+    }
   }
 
   _setClosingListeners(popup) {

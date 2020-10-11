@@ -1,24 +1,14 @@
+import FormValidator from "./FormValidator.js";
+import Card from "./Card.js";
+
 //==========================main-variables-currentPopup==================================
 const editProfileButton = document.querySelector(".profile__edit-button");
 const addPlaceButton = document.querySelector(".profile__add-button");
 const profileName = document.querySelector(".profile__name");
 const profileBio = document.querySelector(".profile__bio");
 
-const popupPicture = document.querySelector(".popup__picture");
-const popupCaption = document.querySelector(".popup__caption");
-
 const editProfilePopup = document.querySelector(".edit-profile");
 const addPlacePopup = document.querySelector(".add-place");
-const fullsizePhotoPopup = document.querySelector(".fullsize-picture"); // edited
-
-const popupsArray = Array.from(document.querySelectorAll(".popup"));
-
-// const template = document.querySelector(".card-template");
-
-const popupsWithForm = {
-  editProfilePopup,
-  addPlacePopup,
-};
 
 const choosePopup = (popupName) => {
   const editForm = popupName.querySelector(".popup__container");
@@ -26,7 +16,7 @@ const choosePopup = (popupName) => {
   const secondLine = editForm.querySelector(".popup__second-line");
   const submitButton = editForm.querySelector(".popup__submit-button");
 
-  return {editForm, firstLine, secondLine, submitButton };
+  return { editForm, firstLine, secondLine, submitButton };
 };
 
 //==========================validation=====================================
@@ -42,83 +32,10 @@ const selectors = {
 
 const formList = Array.from(document.querySelectorAll(".popup__container"));
 
-import { FormValidator } from "./FormValidator.js";
-
 formList.forEach((item) => {
   const form = new FormValidator(selectors, item);
   form.enableValidation();
 });
-
-// const showError = (currentInput, popup, selectorsObject) => {
-//   const errorElement = popup.querySelector(`.${currentInput.id}-error`);
-//   currentInput.classList.add(selectorsObject.inputError);
-//   errorElement.textContent = currentInput.validationMessage;
-//   errorElement.classList.add(selectorsObject.errorVisible);
-// };
-
-// const hideError = (currentInput, popup, selectorsObject) => {
-//   const errorElement = popup.querySelector(`.${currentInput.id}-error`);
-//   currentInput.classList.remove(selectorsObject.inputError);
-//   errorElement.textContent = "";
-//   errorElement.classList.remove(selectorsObject.errorVisible);
-// };
-
-// const checkInputValidity = (currentInput, currentPopup, selectorsObject) => {
-//   if (!currentInput.validity.valid) {
-//     showError(currentInput, currentPopup, selectorsObject);
-//   } else {
-//     hideError(currentInput, currentPopup, selectorsObject);
-//   }
-// };
-
-// const validate = (popup, selectorsObject) => {
-//   const currentPopup = popup;
-//   const inputList = Array.from(
-//     currentPopup.querySelectorAll(selectorsObject.input)
-//   );
-//   inputList.forEach((currentInput) => {
-//     checkInputValidity(currentInput, currentPopup, selectorsObject);
-//   });
-// };
-
-// const hasInvalidInput = (inputList) => {
-//   return inputList.some((inputElement) => {
-//     return !inputElement.validity.valid;
-//   });
-// };
-
-// const toggleButtonState = (popup, selectorsObject) => {
-//   const buttonElement = popup.querySelector(selectorsObject.submitButton);
-//   const inputList = Array.from(popup.querySelectorAll(selectorsObject.input));
-
-//   if (hasInvalidInput(inputList)) {
-//     buttonElement.setAttribute("disabled", "true");
-//     buttonElement.classList.add(selectorsObject.inactiveButton);
-//   } else {
-//     buttonElement.classList.remove(selectorsObject.inactiveButton);
-//     buttonElement.removeAttribute("disabled");
-//   }
-// };
-
-// const setListeners = (popup, selectorsObject) => {
-//   const currentPopup = popup;
-//   const form = currentPopup.querySelector(selectorsObject.form);
-//   const inputList = Array.from(form.querySelectorAll(selectorsObject.input));
-//   inputList.forEach((currentInput) => {
-//     currentInput.addEventListener("input", () => {
-//       checkInputValidity(currentInput, currentPopup, selectorsObject);
-//       toggleButtonState(currentPopup, selectorsObject);
-//     });
-//   });
-// };
-
-// const enableValidation = (popupsObject, selectorsObject) => {
-//   Object.values(popupsObject).forEach((popup) => {
-//     setListeners(popup, selectorsObject);
-//   });
-// };
-
-// enableValidation(popupsWithForm, selectors);
 
 //==========================open/close-popup==================================
 const togglePopup = (popup) => {
@@ -202,15 +119,21 @@ const setClosingListeners = (popup) => {
 };
 
 editProfileButton.addEventListener("click", () => {
-  const validator = new FormValidator(selectors, choosePopup(editProfilePopup).editForm);
+  const validator = new FormValidator(
+    selectors,
+    choosePopup(editProfilePopup).editForm
+  );
   changePopupContent(editProfilePopup);
-  validator.validate()
+  validator.validate();
   validator.toggleButtonState();
   togglePopup(editProfilePopup);
 });
 
 addPlaceButton.addEventListener("click", () => {
-  const validator = new FormValidator(selectors, choosePopup(addPlacePopup).editForm);
+  const validator = new FormValidator(
+    selectors,
+    choosePopup(addPlacePopup).editForm
+  );
   validator.toggleButtonState();
   togglePopup(addPlacePopup);
 });
@@ -257,7 +180,6 @@ const placeCards = [
 ];
 
 const elements = document.querySelector(".elements");
-import Card from "./Card.js";
 
 const renderCards = () => {
   placeCards.forEach((item) => {

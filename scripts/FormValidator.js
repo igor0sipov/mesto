@@ -1,10 +1,11 @@
-export class FormValidator {
+export default class FormValidator {
   constructor(selectorsObject, currentForm) {
     this._selectorsObject = selectorsObject;
     this._currentForm = currentForm;
-    this._inputList = Array.from(currentForm.querySelectorAll(this._selectorsObject.input));
+    this._inputList = Array.from(
+      currentForm.querySelectorAll(this._selectorsObject.input)
+    );
   }
-
 
   _showError(currentInput) {
     this._errorElement = this._currentForm.querySelector(
@@ -53,9 +54,6 @@ export class FormValidator {
   }
 
   _setListeners() {
-    // this._inputList = Array.from(
-    //   this._currentForm.querySelectorAll(this._selectorsObject.input)
-    // );
     this._inputList.forEach((currentInput) => {
       currentInput.addEventListener("input", () => {
         this._checkInputValidity(currentInput);
