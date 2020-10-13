@@ -1,3 +1,5 @@
+import PopupHandler from "./PopupHandler.js";
+
 export default class Card {
   constructor(data, cardSelector) {
     this._title = data.title;
@@ -6,55 +8,15 @@ export default class Card {
     this._cardSelector = cardSelector;
   }
 
-  _togglePopup() {
-    const _popup = document.querySelector(".fullsize-picture");
-    _popup.classList.toggle("popup_opened");
-
-    if (_popup.classList.contains("popup_opened")) {
-      this._setClosingListeners(_popup);
-    } else {
-      this._removeListeners();
-    }
-  }
-
-  _setClosingListeners(popup) {
-    this._removeListeners = () => {
-      document.removeEventListener("keyup", _closePopupByEsc);
-      popup
-        .querySelector(".popup__close-icon")
-        .removeEventListener("click", _closePopupByButton);
-      popup.removeEventListener("click", _closePopupByOverlay);
-    };
-
-    const _closePopupByEsc = (evt) => {
-      if (evt.key == "Escape") {
-        this._togglePopup();
-      }
-    };
-
-    const _closePopupByButton = () => {
-      this._togglePopup();
-    };
-
-    const _closePopupByOverlay = (evt) => {
-      if (evt.target !== evt.currentTarget) {
-        return;
-      }
-      this._togglePopup();
-    };
-
-    document.addEventListener("keyup", _closePopupByEsc);
-    popup
-      .querySelector(".popup__close-icon")
-      .addEventListener("click", _closePopupByButton);
-    popup.addEventListener("click", _closePopupByOverlay);
-  }
-
   _openFullsizePhoto(event) {
-    document.querySelector(".popup__picture").src = event.target.src;
+    this._popup = document.querySelector(".fullsize-picture");
+    const picture = document.querySelector(".popup__picture");
+    picture.src = event.target.src;
     document.querySelector(".popup__caption").textContent =
       event.target.nextElementSibling.textContent;
-    this._togglePopup();
+    const popupHandler = new PopupHandler(this._popup);
+    popupHandler.openPopup();
+    popupHandler.setPopupClosingListeners();
   }
 
   _removePlace(event) {
@@ -75,12 +37,9 @@ export default class Card {
 
   _setListeners() {
     this._element = this._getTemplate();
-
     this._element
       .querySelector(".element__picture")
-      .addEventListener("click", (evt) => {
-        this._openFullsizePhoto(evt);
-      });
+      .addEventListener("click", this._openFullsizePhoto);
     this._element
       .querySelector(".element__delete-button")
       .addEventListener("click", (evt) => {
@@ -97,9 +56,11 @@ export default class Card {
     this._element = this._getTemplate();
     this._setListeners();
 
+    const elementPicture = this._element.querySelector(".element__picture");
+
     this._element.querySelector(".element__name").textContent = this._title;
-    this._element.querySelector(".element__picture").src = this._image;
-    this._element.querySelector(".element__picture").alt = this._alt;
+    elementPicture.src = this._image;
+    elementPicture.alt = this._alt;
 
     return this._element;
   }
