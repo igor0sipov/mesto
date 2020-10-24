@@ -1,6 +1,6 @@
-import FormValidator from "./FormValidator.js";
-import Card from "./Card.js";
-import PopupHandler from "./PopupHandler.js";
+import FormValidator from "../components/FormValidator.js";
+import Card from "../components/Card.js";
+import PopupHandler from "../components/PopupHandler.js";
 
 //==========================main-variables-currentPopup==================================
 const editProfileButton = document.querySelector(".profile__edit-button");
