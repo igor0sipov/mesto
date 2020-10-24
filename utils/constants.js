@@ -7,10 +7,9 @@ export const profileBio = document.querySelector(".profile__bio");
 
 export const editProfilePopup = document.querySelector(".edit-profile");
 export const addPlacePopup = document.querySelector(".add-place");
+export const fullsizePopup = document.querySelector(".fullsize-picture");
 
 export const elements = document.querySelector(".elements");
-
-export const popupList = Array.from(document.querySelectorAll('.popup'));
 
 export const placeCards = [
   {

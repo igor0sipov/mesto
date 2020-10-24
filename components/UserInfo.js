@@ -8,7 +8,7 @@ export default class UserInfo {
     return {
       name: this._name.textContent,
       bio: this._bio.textContent,
-    }
+    };
   }
 
   setUserInfo(newName, newBio) {
