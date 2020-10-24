@@ -14,12 +14,6 @@ export default class Popup {
     document.addEventListener('keyup', this._escHandlerBound);
   }
 
-  _closingByEsc(evt) {
-    if (evt.key == "Escape") {
-      this.close();
-    }
-  }
-
   _closingByOverlay(evt) {
     if (evt.target !== evt.currentTarget) {
       return;
@@ -28,10 +22,9 @@ export default class Popup {
   }
 
   _handleEscClose(evt) {
-    if (evt.target !== evt.currentTarget) {
-      return;
+    if (evt.key == "Escape") {
+      this.close();
     }
-    this.close();
   }
 
   setEventListeners() {
