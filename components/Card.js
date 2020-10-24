@@ -1,7 +1,8 @@
 import PopupHandler from "./PopupHandler.js";
 
 export default class Card {
-  constructor(data, cardSelector) {
+  constructor({ data, handleCardClick }, cardSelector) {
+    this._handleCardClick = handleCardClick;
     this._title = data.title;
     this._image = data.image;
     this._alt = data.alt;
@@ -9,14 +10,12 @@ export default class Card {
   }
 
   _openFullsizePhoto(event) {
-    this._popup = document.querySelector(".fullsize-picture");
+    const popup = document.querySelector(".fullsize-picture");
     const picture = document.querySelector(".popup__picture");
     picture.src = event.target.src;
     document.querySelector(".popup__caption").textContent =
       event.target.nextElementSibling.textContent;
-    const popupHandler = new PopupHandler(this._popup);
-    popupHandler.openPopup();
-    popupHandler.setPopupClosingListeners();
+    this._handleCardClick(popup);
   }
 
   _removePlace(event) {
@@ -39,7 +38,7 @@ export default class Card {
     this._element = this._getTemplate();
     this._element
       .querySelector(".element__picture")
-      .addEventListener("click", this._openFullsizePhoto);
+      .addEventListener("click", this._openFullsizePhoto.bind(this));
     this._element
       .querySelector(".element__delete-button")
       .addEventListener("click", (evt) => {
