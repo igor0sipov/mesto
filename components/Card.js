@@ -1,5 +1,3 @@
-import PopupHandler from "./PopupHandler.js";
-
 export default class Card {
   constructor({ data, handleCardClick }, cardSelector) {
     this._handleCardClick = handleCardClick;
