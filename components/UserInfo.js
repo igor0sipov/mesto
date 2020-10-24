@@ -4,5 +4,12 @@ class UserInfo {
     this._bio = bio;
   }
 
+  getUserInfo() {
+
+  }
+
+  setUserInfo() {
+
+  }
 
 }
