@@ -1,16 +1,23 @@
-class PopupWithForm extends Popup {
+import Popup from "./Popup.js";
+import UserInfo from './UserInfo.js'
+
+export default class PopupWithForm extends Popup {
   constructor(popupSelector, callback) {
     super(popupSelector);
     this._popup = popupSelector;
+    this._form = this._popup.querySelector('.form');
     this._callback = callback;
   }
 
-  _getInputValues() {}
-
-  close() {
-    super.close();
+  _getInputValues() {
 
   }
 
-  setEventListeners() {}
+  close() {
+    super.close();
+  }
+
+  setEventListeners() {
+
+  }
 }

@@ -5,11 +5,14 @@ class UserInfo {
   }
 
   getUserInfo() {
-
+    return {
+      name: this._name.textContent,
+      bio: this._bio.textContent,
+    }
   }
 
-  setUserInfo() {
-
+  setUserInfo(newName, newBio) {
+    this._name.textContent = newName;
+    this._bio.textContent = newBio;
   }
-
 }
