@@ -9,15 +9,19 @@ export default class PopupWithForm extends Popup {
     this._callback = callback;
   }
 
-  _getInputValues() {
+  // _getInputValues() {
+  //   const values = {}
+  //   const inputList = Array.from(this._form.querySelectorAll('input'));
+  //   inputList.forEach(input => {
+  //     values['test'] = input.value;
+  //   })
+  // }
 
-  }
+  // close() {
+  //   super.close();
+  // }
 
-  close() {
-    super.close();
-  }
+  // setEventListeners() {
 
-  setEventListeners() {
-
-  }
+  // }
 }

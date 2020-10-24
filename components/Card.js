@@ -28,7 +28,6 @@ export default class Card {
     const templateContent = document
       .querySelector(this._cardSelector)
       .content.cloneNode(true);
-
     return templateContent;
   }
 

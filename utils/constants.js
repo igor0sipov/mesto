@@ -10,6 +10,8 @@ export const addPlacePopup = document.querySelector(".add-place");
 
 export const elements = document.querySelector(".elements");
 
+export const popupList = Array.from(document.querySelectorAll('.popup'));
+
 export const placeCards = [
   {
     title: "Алтай",
