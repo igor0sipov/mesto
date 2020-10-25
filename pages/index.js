@@ -15,8 +15,6 @@ constants.formList.forEach(item => {
 
 //========================popups-opening/closing=====================================
 
-
-
 constants.addPlaceButton.addEventListener("click", () => {
 
   const popup = new PopupWithForm({
@@ -72,6 +70,8 @@ constants.editProfileButton.addEventListener("click", () => {
   constants.bio.value = profileInfo.bio;
   popup.open();
 });
+
+//===============================cards-rendering==================================
 
 const renderBaseCards = () => {
   const section = new Section(
