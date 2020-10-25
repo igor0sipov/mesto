@@ -22,10 +22,7 @@ const handleCardClick = (popupElement) => {
 };
 
 constants.addPlaceButton.addEventListener("click", () => {
-  const firstLine = constants.addPlacePopup.querySelector(".popup__first-line");
-  const secondLine = constants.addPlacePopup.querySelector(
-    ".popup__second-line"
-  );
+
   const popup = new PopupWithForm({
     popupSelector: constants.addPlacePopup,
     callback: (event) => {
@@ -34,9 +31,9 @@ constants.addPlaceButton.addEventListener("click", () => {
         {
           items: [
             {
-              title: firstLine.value,
-              image: secondLine.value,
-              alt: firstLine.value,
+              title: constants.title.value,
+              image: constants.url.value,
+              alt: constants.title.value,
             },
           ],
           renderer: (item) => {
@@ -62,40 +59,23 @@ constants.addPlaceButton.addEventListener("click", () => {
 });
 
 constants.editProfileButton.addEventListener("click", () => {
-  const firstLine = constants.editProfilePopup.querySelector(
-    ".popup__first-line"
-  );
-  const secondLine = constants.editProfilePopup.querySelector(
-    ".popup__second-line"
-  );
+
   const userInfo = new UserInfo(constants.profileName, constants.profileBio);
 
   const popup = new PopupWithForm({
     popupSelector: constants.editProfilePopup,
     callback: (event) => {
       event.preventDefault();
-      userInfo.setUserInfo(firstLine.value, secondLine.value);
+      userInfo.setUserInfo(constants.name.value, constants.bio.value);
       popup.close();
     },
   });
   popup.setEventListeners();
   const profileInfo = userInfo.getUserInfo();
-  firstLine.value = profileInfo.name;
-  secondLine.value = profileInfo.bio;
+  constants.name.value = profileInfo.name;
+  constants.bio.value = profileInfo.bio;
   popup.open();
 });
-
-const renderCard = (item) => {
-  const card = new Card(
-    {
-      data: item,
-      handleCardClick: handleCardClick,
-    },
-    ".card-template"
-  );
-  const cardElement = card.initializeCard();
-  section.addItem(cardElement);
-};
 
 const renderBaseCards = () => {
   const section = new Section(

@@ -6,8 +6,13 @@ export const profileName = document.querySelector(".profile__name");
 export const profileBio = document.querySelector(".profile__bio");
 
 export const editProfilePopup = document.querySelector(".edit-profile");
+export const name = editProfilePopup.querySelector('.popup__first-line');
+export const bio = editProfilePopup.querySelector('.popup__second-line');
+
+
 export const addPlacePopup = document.querySelector(".add-place");
-export const fullsizePopup = document.querySelector(".fullsize-picture");
+export const title = addPlacePopup.querySelector('.popup__first-line');
+export const url = addPlacePopup.querySelector('.popup__second-line');
 
 export const elements = document.querySelector(".elements");
 
