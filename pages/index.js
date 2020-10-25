@@ -15,6 +15,29 @@ constants.formList.forEach((item) => {
 
 //========================popups-opening/closing==============================================
 
+constants.editProfileButton.addEventListener("click", () => {
+  const validator =  new FormValidator(constants.validationSelectors, constants.editProfileForm);
+
+  const userInfo = new UserInfo(constants.profileName, constants.profileBio);
+
+  const popup = new PopupWithForm({
+    popupSelector: constants.editProfilePopup,
+    callback: (event) => {
+      event.preventDefault();
+      userInfo.setUserInfo(constants.name.value, constants.bio.value);
+      popup.close();
+    },
+  });
+  popup.setEventListeners();
+  const profileInfo = userInfo.getUserInfo();
+  constants.name.value = profileInfo.name;
+  constants.bio.value = profileInfo.bio;
+  validator.validate();
+  validator.toggleButtonState();
+  popup.open();
+});
+
+
 constants.addPlaceButton.addEventListener("click", () => {
   const validator = new FormValidator(constants.validationSelectors, constants.addPlaceForm);
 
@@ -50,28 +73,7 @@ constants.addPlaceButton.addEventListener("click", () => {
     },
   });
   popup.setEventListeners();
-  validator.toggleButtonState();
-  popup.open();
-});
-
-constants.editProfileButton.addEventListener("click", () => {
-  const validator =  new FormValidator(constants.validationSelectors, constants.editProfileForm);
-
-  const userInfo = new UserInfo(constants.profileName, constants.profileBio);
-
-  const popup = new PopupWithForm({
-    popupSelector: constants.editProfilePopup,
-    callback: (event) => {
-      event.preventDefault();
-      userInfo.setUserInfo(constants.name.value, constants.bio.value);
-      popup.close();
-    },
-  });
-  popup.setEventListeners();
-  const profileInfo = userInfo.getUserInfo();
-  constants.name.value = profileInfo.name;
-  constants.bio.value = profileInfo.bio;
-  validator.validate();
+  validator.clear();
   validator.toggleButtonState();
   popup.open();
 });

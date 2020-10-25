@@ -68,6 +68,12 @@ export default class FormValidator {
     });
   }
 
+  clear() {
+    this._inputList.forEach(currentInput => {
+      this._hideError(currentInput);
+    })
+  }
+
   enableValidation() {
     const submitFormHandler = (event) => {
       event.preventDefault();
