@@ -1,7 +1,7 @@
 import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
 import * as constants from "../utils/constants.js";
-import Popup from "../components/Popup.js";
+import { handleCardClick } from '../utils/utils.js'
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import Section from "../components/Section.js";
@@ -15,11 +15,7 @@ constants.formList.forEach(item => {
 
 //========================popups-opening/closing=====================================
 
-const handleCardClick = (popupElement) => {
-  const popup = new Popup(popupElement);
-  popup.setEventListeners();
-  popup.open();
-};
+
 
 constants.addPlaceButton.addEventListener("click", () => {
 
