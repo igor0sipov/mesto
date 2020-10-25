@@ -11,6 +11,16 @@ export const fullsizePopup = document.querySelector(".fullsize-picture");
 
 export const elements = document.querySelector(".elements");
 
+export const formList = Array.from(document.querySelectorAll('.form'));
+export const validationSelectors = {
+  form: ".form",
+  input: ".input",
+  submitButton: ".popup__submit-button",
+  inactiveButton: "popup__submit-button_disabled",
+  inputError: "input_type_error",
+  errorVisible: "popup__input-error_visible",
+};
+
 export const placeCards = [
   {
     title: "Алтай",

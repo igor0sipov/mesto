@@ -6,6 +6,15 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import Section from "../components/Section.js";
 
+//===============================validation==========================================
+
+constants.formList.forEach(item => {
+  const form = new FormValidator(constants.validationSelectors, item);
+  form.enableValidation();
+});
+
+//========================popups-opening/closing=====================================
+
 const handleCardClick = (popupElement) => {
   const popup = new Popup(popupElement);
   popup.setEventListeners();
