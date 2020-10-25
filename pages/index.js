@@ -6,16 +6,18 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import Section from "../components/Section.js";
 
-//===============================validation==========================================
+//===============================validation===================================================
 
 constants.formList.forEach((item) => {
   const form = new FormValidator(constants.validationSelectors, item);
   form.enableValidation();
 });
 
-//========================popups-opening/closing=====================================
+//========================popups-opening/closing==============================================
 
 constants.addPlaceButton.addEventListener("click", () => {
+  const validator = new FormValidator(constants.validationSelectors, constants.addPlaceForm);
+
   const popup = new PopupWithForm({
     popupSelector: constants.addPlacePopup,
     callback: (event) => {
@@ -48,10 +50,13 @@ constants.addPlaceButton.addEventListener("click", () => {
     },
   });
   popup.setEventListeners();
+  validator.toggleButtonState();
   popup.open();
 });
 
 constants.editProfileButton.addEventListener("click", () => {
+  const validator =  new FormValidator(constants.validationSelectors, constants.editProfileForm);
+
   const userInfo = new UserInfo(constants.profileName, constants.profileBio);
 
   const popup = new PopupWithForm({
@@ -66,10 +71,12 @@ constants.editProfileButton.addEventListener("click", () => {
   const profileInfo = userInfo.getUserInfo();
   constants.name.value = profileInfo.name;
   constants.bio.value = profileInfo.bio;
+  validator.validate();
+  validator.toggleButtonState();
   popup.open();
 });
 
-//===============================cards-rendering==================================
+//====================================cards-rendering=========================================
 
 const renderBaseCards = () => {
   const section = new Section(

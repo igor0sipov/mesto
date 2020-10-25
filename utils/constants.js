@@ -3,13 +3,15 @@ export const profileName = document.querySelector(".profile__name");
 export const profileBio = document.querySelector(".profile__bio");
 
 export const editProfilePopup = document.querySelector(".edit-profile");
-export const name = editProfilePopup.querySelector(".popup__first-line");
-export const bio = editProfilePopup.querySelector(".popup__second-line");
+export const editProfileForm = editProfilePopup.querySelector('.form');
+export const name = editProfileForm.querySelector(".popup__first-line");
+export const bio = editProfileForm.querySelector(".popup__second-line");
 
 export const addPlaceButton = document.querySelector(".profile__add-button");
 export const addPlacePopup = document.querySelector(".add-place");
-export const title = addPlacePopup.querySelector(".popup__first-line");
-export const url = addPlacePopup.querySelector(".popup__second-line");
+export const addPlaceForm = addPlacePopup.querySelector('.form');
+export const title = addPlaceForm.querySelector(".popup__first-line");
+export const url = addPlaceForm.querySelector(".popup__second-line");
 
 export const elements = document.querySelector(".elements");
 
