@@ -1,14 +1,14 @@
 import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
 import * as constants from "../utils/constants.js";
-import { handleCardClick } from '../utils/utils.js'
+import { handleCardClick } from "../utils/utils.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import Section from "../components/Section.js";
 
 //===============================validation==========================================
 
-constants.formList.forEach(item => {
+constants.formList.forEach((item) => {
   const form = new FormValidator(constants.validationSelectors, item);
   form.enableValidation();
 });
@@ -16,7 +16,6 @@ constants.formList.forEach(item => {
 //========================popups-opening/closing=====================================
 
 constants.addPlaceButton.addEventListener("click", () => {
-
   const popup = new PopupWithForm({
     popupSelector: constants.addPlacePopup,
     callback: (event) => {
@@ -53,7 +52,6 @@ constants.addPlaceButton.addEventListener("click", () => {
 });
 
 constants.editProfileButton.addEventListener("click", () => {
-
   const userInfo = new UserInfo(constants.profileName, constants.profileBio);
 
   const popup = new PopupWithForm({
