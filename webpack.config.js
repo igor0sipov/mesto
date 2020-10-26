@@ -50,6 +50,7 @@ module.exports = {
       },
     ],
   },
+
   plugins: [
     new HtmlWebpackPlugin({
       title: "Mesto",
@@ -59,5 +60,5 @@ module.exports = {
     new MiniCssExtractPlugin(),
   ],
 
-
+  // devtool: "inline-source-map",
 };
