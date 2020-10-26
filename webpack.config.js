@@ -4,7 +4,6 @@ const { Template } = require("webpack");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
-  mode: 'development',
   entry: "./src/pages/index.js",
   output: {
     filename: "main.js",
@@ -51,7 +50,6 @@ module.exports = {
       },
     ],
   },
-  devtool: 'inline-source-map',
   plugins: [
     new HtmlWebpackPlugin({
       title: "Mesto",
@@ -61,5 +59,5 @@ module.exports = {
     new MiniCssExtractPlugin(),
   ],
 
-  // devtool: "inline-source-map",
+
 };
