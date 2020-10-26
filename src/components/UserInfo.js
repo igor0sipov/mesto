@@ -11,7 +11,7 @@ export default class UserInfo {
     };
   }
 
-  setUserInfo(newName, newBio) {
+  setUserInfo({ newName, newBio }) {
     this._name.textContent = newName;
     this._bio.textContent = newBio;
   }

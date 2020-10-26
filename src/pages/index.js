@@ -6,7 +6,6 @@ import { renderCards } from "../utils/utils.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 
-
 //===============================validation===================================================
 
 constants.formList.forEach((item) => {
@@ -21,27 +20,31 @@ constants.editProfileButton.addEventListener("click", () => {
     constants.validationSelectors,
     constants.editProfileForm
   );
-  const profileInfo = {
+  const userInfo = new UserInfo({
     name: constants.profileName,
     bio: constants.profileBio,
-  };
-  const userInfo = new UserInfo(profileInfo);
-
-  const popup = new PopupWithForm({
+  });
+  const profile = userInfo.getUserInfo();
+  const popupWithForm = new PopupWithForm({
     popupSelector: constants.editProfilePopup,
     callback: (event) => {
       event.preventDefault();
-      userInfo.setUserInfo(constants.name.value, constants.bio.value);
-      popup.close();
+      const newInfo = popupWithForm.getInputValues();
+      userInfo.setUserInfo({
+        newName: newInfo.name,
+        newBio: newInfo.bio,
+      });
+      popupWithForm.close();
     },
   });
-  popup.setEventListeners();
-  const info = userInfo.getUserInfo();
-  constants.name.value = info.name;
-  constants.bio.value = info.bio;
+  popupWithForm.setEventListeners();
+  popupWithForm.setDefaultValues({
+    defaultName: profile.name,
+    defaultBio: profile.bio,
+  });
   validator.validate();
   validator.toggleButtonState();
-  popup.open();
+  popupWithForm.open();
 });
 
 constants.addPlaceButton.addEventListener("click", () => {
@@ -60,7 +63,7 @@ constants.addPlaceButton.addEventListener("click", () => {
           image: constants.url.value,
           alt: constants.title.value,
         },
-      ])
+      ]);
       popup.close();
     },
   });
@@ -72,4 +75,4 @@ constants.addPlaceButton.addEventListener("click", () => {
 
 //====================================base-cards-rendering=========================================
 
-  renderCards(constants.placeCards);
+renderCards(constants.placeCards);

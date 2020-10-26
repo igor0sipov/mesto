@@ -6,12 +6,19 @@ export default class PopupWithForm extends Popup {
     this._form = this._popup.querySelector(".form");
     this._callback = callback;
     this._boundCallback = this._callback.bind(this);
+    this._firstLine = this._form.querySelector(".popup__first-line");
+    this._secondLine = this._form.querySelector(".popup__second-line");
   }
 
-  _getInputValues() {
-    const firstLine = this._form.querySelector(".popup__first-line").value;
-    const secondLine = this._form.querySelector(".popup__second-line").value;
-    return { firstLine, secondLine };
+  setDefaultValues({ defaultName, defaultBio }) {
+    this._firstLine.value = defaultName;
+    this._secondLine.value = defaultBio;
+  }
+
+  getInputValues() {
+    const name = this._firstLine.value;
+    const bio = this._secondLine.value;
+    return { name, bio };
   }
 
   close() {
