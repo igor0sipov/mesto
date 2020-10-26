@@ -1,7 +1,6 @@
 import "./index.css";
 
 import FormValidator from "../components/FormValidator.js";
-
 import * as constants from "../utils/constants.js";
 import { renderCards } from "../utils/utils.js";
 import PopupWithForm from "../components/PopupWithForm.js";
