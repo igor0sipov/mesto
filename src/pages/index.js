@@ -19,8 +19,11 @@ constants.formList.forEach((item) => {
 
 constants.editProfileButton.addEventListener("click", () => {
   const validator =  new FormValidator(constants.validationSelectors, constants.editProfileForm);
-
-  const userInfo = new UserInfo(constants.profileName, constants.profileBio);
+  const profileInfo = {
+    name: constants.profileName,
+    bio: constants.profileBio
+  }
+  const userInfo = new UserInfo(profileInfo);
 
   const popup = new PopupWithForm({
     popupSelector: constants.editProfilePopup,
