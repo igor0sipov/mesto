@@ -3,10 +3,10 @@ import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import { elements } from "./constants.js";
 
-export const renderCards = (cardsArray) => {
+export const renderCards = (cardsInfoArray) => {
   const section = new Section(
     {
-      items: cardsArray,
+      items: cardsInfoArray,
       renderer: (cardData) => {
         const card = new Card(
           {
