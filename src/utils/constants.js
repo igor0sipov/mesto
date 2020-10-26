@@ -4,8 +4,6 @@ export const profileBio = document.querySelector(".profile__bio");
 
 export const editProfilePopup = document.querySelector(".edit-profile");
 export const editProfileForm = editProfilePopup.querySelector('.form');
-export const name = editProfileForm.querySelector(".popup__first-line");
-export const bio = editProfileForm.querySelector(".popup__second-line");
 
 export const addPlaceButton = document.querySelector(".profile__add-button");
 export const addPlacePopup = document.querySelector(".add-place");
