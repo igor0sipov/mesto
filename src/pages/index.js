@@ -1,13 +1,12 @@
 import "./index.css";
 
 import FormValidator from "../components/FormValidator.js";
-import Card from "../components/Card.js";
+
 import * as constants from "../utils/constants.js";
-import { handleCardClick } from "../utils/utils.js";
+import { renderCards } from "../utils/utils.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
-import Section from "../components/Section.js";
-import PopupWithImage from "../components/PopupWithImage.js";
+
 
 //===============================validation===================================================
 
@@ -56,30 +55,13 @@ constants.addPlaceButton.addEventListener("click", () => {
     popupSelector: constants.addPlacePopup,
     callback: (event) => {
       event.preventDefault();
-      const section = new Section(
+      renderCards([
         {
-          items: [
-            {
-              title: constants.title.value,
-              image: constants.url.value,
-              alt: constants.title.value,
-            },
-          ],
-          renderer: (item) => {
-            const card = new Card(
-              {
-                data: item,
-                handleCardClick: handleCardClick,
-              },
-              ".card-template"
-            );
-            const cardElement = card.initializeCard();
-            section.addItem(cardElement);
-          },
+          title: constants.title.value,
+          image: constants.url.value,
+          alt: constants.title.value,
         },
-        constants.elements
-      );
-      section.renderItems();
+      ])
       popup.close();
     },
   });
@@ -89,35 +71,6 @@ constants.addPlaceButton.addEventListener("click", () => {
   popup.open();
 });
 
-//====================================cards-rendering=========================================
+//====================================base-cards-rendering=========================================
 
-const renderBaseCards = () => {
-  const section = new Section(
-    {
-      items: constants.placeCards,
-      renderer: (item) => {
-        const card = new Card(
-          {
-            data: item,
-            handleCardClick: ({image, title}, popup)=> {
-              const popupWithImage = new PopupWithImage({
-                picture: image,
-                caption: title,
-              }, popup);
-              popupWithImage.setEventListeners();
-              popupWithImage.open();
-            },
-          },
-          ".card-template"
-        );
-        const cardElement = card.initializeCard();
-        section.addItem(cardElement);
-      },
-    },
-    constants.elements
-  );
-
-  section.renderItems();
-};
-
-renderBaseCards();
+  renderCards(constants.placeCards);
