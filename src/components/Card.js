@@ -1,3 +1,5 @@
+import PopupWithImage from './PopupWithImage.js';
+
 export default class Card {
   constructor({ data, handleCardClick }, cardSelector) {
     this._handleCardClick = handleCardClick;
@@ -7,13 +9,12 @@ export default class Card {
     this._cardSelector = cardSelector;
   }
 
-  _openFullsizePhoto(event) {
-    const popup = document.querySelector(".fullsize-picture");
-    const picture = document.querySelector(".popup__picture");
-    picture.src = event.target.src;
-    document.querySelector(".popup__caption").textContent =
-      event.target.nextElementSibling.textContent;
-    this._handleCardClick(popup);
+  _openFullsizePhoto() {
+    const popup = document.querySelector('.fullsize-picture');
+    this._handleCardClick({
+      image: this._image,
+      title: this._title,
+    }, popup);
   }
 
   _removePlace(event) {

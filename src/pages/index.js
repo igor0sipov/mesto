@@ -1,4 +1,4 @@
-import './index.css';
+import "./index.css";
 
 import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
@@ -7,6 +7,7 @@ import { handleCardClick } from "../utils/utils.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import Section from "../components/Section.js";
+import PopupWithImage from "../components/PopupWithImage.js";
 
 //===============================validation===================================================
 
@@ -18,11 +19,14 @@ constants.formList.forEach((item) => {
 //========================popups-opening/closing==============================================
 
 constants.editProfileButton.addEventListener("click", () => {
-  const validator =  new FormValidator(constants.validationSelectors, constants.editProfileForm);
+  const validator = new FormValidator(
+    constants.validationSelectors,
+    constants.editProfileForm
+  );
   const profileInfo = {
     name: constants.profileName,
-    bio: constants.profileBio
-  }
+    bio: constants.profileBio,
+  };
   const userInfo = new UserInfo(profileInfo);
 
   const popup = new PopupWithForm({
@@ -34,17 +38,19 @@ constants.editProfileButton.addEventListener("click", () => {
     },
   });
   popup.setEventListeners();
-  const profileInfo = userInfo.getUserInfo();
-  constants.name.value = profileInfo.name;
-  constants.bio.value = profileInfo.bio;
+  const info = userInfo.getUserInfo();
+  constants.name.value = info.name;
+  constants.bio.value = info.bio;
   validator.validate();
   validator.toggleButtonState();
   popup.open();
 });
 
-
 constants.addPlaceButton.addEventListener("click", () => {
-  const validator = new FormValidator(constants.validationSelectors, constants.addPlaceForm);
+  const validator = new FormValidator(
+    constants.validationSelectors,
+    constants.addPlaceForm
+  );
 
   const popup = new PopupWithForm({
     popupSelector: constants.addPlacePopup,
@@ -93,7 +99,14 @@ const renderBaseCards = () => {
         const card = new Card(
           {
             data: item,
-            handleCardClick: handleCardClick,
+            handleCardClick: ({image, title}, popup)=> {
+              const popupWithImage = new PopupWithImage({
+                picture: image,
+                caption: title,
+              }, popup);
+              popupWithImage.setEventListeners();
+              popupWithImage.open();
+            },
           },
           ".card-template"
         );
