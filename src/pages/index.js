@@ -30,6 +30,8 @@ editForm.enableValidation();
 const placeForm = new FormValidator(validationSelectors, addPlaceForm);
 placeForm.enableValidation();
 
+//====================================popups==================================================
+
 const userInfo = new UserInfo({
   name: profileName,
   bio: profileBio,
