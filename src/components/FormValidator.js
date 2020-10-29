@@ -39,7 +39,7 @@ export default class FormValidator {
     });
   }
 
-  toggleButtonState() {
+  _toggleButtonState() {
     const _buttonElement = this._currentForm.querySelector(
       this._selectorsObject.submitButton
     );
@@ -57,7 +57,7 @@ export default class FormValidator {
     this._inputList.forEach((currentInput) => {
       currentInput.addEventListener("input", () => {
         this._checkInputValidity(currentInput);
-        this.toggleButtonState();
+        this._toggleButtonState();
       });
     });
   }
@@ -66,12 +66,13 @@ export default class FormValidator {
     this._inputList.forEach((currentInput) => {
       this._checkInputValidity(currentInput);
     });
+    this._toggleButtonState();
   }
 
   clear() {
-    this._inputList.forEach(currentInput => {
+    this._inputList.forEach((currentInput) => {
       this._hideError(currentInput);
-    })
+    });
   }
 
   enableValidation() {

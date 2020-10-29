@@ -1,78 +1,122 @@
 import "./index.css";
-
 import FormValidator from "../components/FormValidator.js";
-import * as constants from "../utils/constants.js";
-import { renderCards } from "../utils/utils.js";
+import {
+  editProfileButton,
+  profileName,
+  profileBio,
+  editProfilePopup,
+  editProfileForm,
+  nameInput,
+  bioInput,
+  addPlaceButton,
+  addPlacePopup,
+  addPlaceForm,
+  elements,
+  validationSelectors,
+  placeCards,
+  fullsizePicturePopup,
+} from "../utils/constants.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 
+import Card from "../components/Card.js";
+import Section from "../components/Section.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+
 //===============================validation===================================================
 
-constants.formList.forEach((item) => {
-  const form = new FormValidator(constants.validationSelectors, item);
-  form.enableValidation();
+const editForm = new FormValidator(validationSelectors, editProfileForm);
+editForm.enableValidation();
+const placeForm = new FormValidator(validationSelectors, addPlaceForm);
+placeForm.enableValidation();
+
+const userInfo = new UserInfo({
+  name: profileName,
+  bio: profileBio,
 });
+
+const editPopup = new PopupWithForm(
+  {
+    popupSelector: editProfilePopup,
+    handleFormSubmit: (profilePopupInputs) => {
+      userInfo.setUserInfo({
+        newName: profilePopupInputs.topLine,
+        newBio: profilePopupInputs.bottomLine,
+      });
+      editPopup.close();
+    },
+  },
+  {
+    topInput: ".user-name",
+    bottomInput: ".user-bio",
+  }
+);
+editPopup.setEventListeners();
+
+const renderCards = (cardsInfoArray) => {
+  const section = new Section(
+    {
+      items: cardsInfoArray,
+      renderer: (cardData) => {
+        const card = new Card(
+          {
+            data: cardData,
+            handleCardClick: ({ image, title }) => {
+              picturePopup.open(image, title);
+            },
+          },
+          ".card-template"
+        );
+        const cardElement = card.initializeCard();
+        section.addItem(cardElement);
+      },
+    },
+    elements
+  );
+
+  section.renderItems();
+};
+
+const placePopup = new PopupWithForm(
+  {
+    popupSelector: addPlacePopup,
+    handleFormSubmit: (placePopupInputs) => {
+      renderCards([
+        {
+          title: placePopupInputs.topLine,
+          image: placePopupInputs.bottomLine,
+          alt: placePopupInputs.topLine,
+        },
+      ]);
+      placePopup.close();
+    },
+  },
+  {
+    topInput: ".place-title",
+    bottomInput: ".place-url",
+  }
+);
+placePopup.setEventListeners();
+
+const picturePopup = new PopupWithImage(fullsizePicturePopup);
+picturePopup.setEventListeners();
 
 //========================popups-opening/closing==============================================
 
-constants.editProfileButton.addEventListener("click", () => {
-  const validator = new FormValidator(
-    constants.validationSelectors,
-    constants.editProfileForm
-  );
-  const userInfo = new UserInfo({
-    name: constants.profileName,
-    bio: constants.profileBio,
-  });
-  const profile = userInfo.getUserInfo();
-  const popupWithForm = new PopupWithForm({
-    popupSelector: constants.editProfilePopup,
-    callback: (event) => {
-      event.preventDefault();
-      const newInfo = popupWithForm.getInputValues();
-      userInfo.setUserInfo({
-        newName: newInfo.name,
-        newBio: newInfo.bio,
-      });
-      popupWithForm.close();
-    },
-  });
-  popupWithForm.setEventListeners();
-  popupWithForm.setDefaultValues({
-    defaultName: profile.name,
-    defaultBio: profile.bio,
-  });
-  validator.validate();
-  validator.toggleButtonState();
-  popupWithForm.open();
+editProfileButton.addEventListener("click", () => {
+  const profileInfo = userInfo.getUserInfo();
+  nameInput.value = profileInfo.name;
+  bioInput.value = profileInfo.bio;
+  editForm.validate();
+  editPopup.open();
 });
 
-constants.addPlaceButton.addEventListener("click", () => {
-  const validator = new FormValidator(
-    constants.validationSelectors,
-    constants.addPlaceForm
-  );
-
-  const popup = new PopupWithForm({
-    popupSelector: constants.addPlacePopup,
-    callback: (event) => {
-      event.preventDefault();
-      renderCards([
-        {
-          title: constants.title.value,
-          image: constants.url.value,
-          alt: constants.title.value,
-        },
-      ]);
-      popup.close();
-    },
-  });
-  popup.setEventListeners();
-  validator.clear();
-  validator.toggleButtonState();
-  popup.open();
+addPlaceButton.addEventListener("click", () => {
+  placeForm.validate();
+  placeForm.clear();
+  placePopup.open();
 });
 
 //====================================base-cards-rendering=========================================
 
-renderCards(constants.placeCards);
+renderCards(placeCards);

@@ -1,25 +1,28 @@
-export const editProfileButton = document.querySelector(".profile__edit-button");
+export const editProfileButton = document.querySelector(
+  ".profile__edit-button"
+);
 export const profileName = document.querySelector(".profile__name");
 export const profileBio = document.querySelector(".profile__bio");
 
 export const editProfilePopup = document.querySelector(".edit-profile");
-export const editProfileForm = editProfilePopup.querySelector('.form');
+export const editProfileForm = editProfilePopup.querySelector(".form");
+export const nameInput = editProfileForm.querySelector(".user-name");
+export const bioInput = editProfileForm.querySelector(".user-bio");
 
 export const addPlaceButton = document.querySelector(".profile__add-button");
 export const addPlacePopup = document.querySelector(".add-place");
-export const addPlaceForm = addPlacePopup.querySelector('.form');
-export const title = addPlaceForm.querySelector(".popup__first-line");
-export const url = addPlaceForm.querySelector(".popup__second-line");
+export const addPlaceForm = addPlacePopup.querySelector(".form");
 
 export const elements = document.querySelector(".elements");
 
-export const formList = Array.from(document.querySelectorAll(".form"));
+export const fullsizePicturePopup = document.querySelector(".fullsize-picture");
+
 export const validationSelectors = {
   form: ".form",
-  input: ".input",
+  input: ".popup__input",
   submitButton: ".popup__submit-button",
   inactiveButton: "popup__submit-button_disabled",
-  inputError: "input_type_error",
+  inputError: "popup__input_type_error",
   errorVisible: "popup__input-error_visible",
 };
 

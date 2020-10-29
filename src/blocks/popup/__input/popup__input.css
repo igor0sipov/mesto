@@ -1,4 +1,7 @@
-.input {
+.popup__input {
+  width: 100%;
+  margin: 13px 0 5px;
+
   background: none;
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, .2);
@@ -12,10 +15,14 @@
   line-height: 1.22;
 }
 
+.popup__input:first-of-type {
+  margin: 0 0 5px 0;
+}
 
 @media screen and (max-width: 380px) {
-  .input {
+  .popup__input {
     font-size: 12px;
     line-height: 1.25;
   }
 }
+
