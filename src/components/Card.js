@@ -1,10 +1,10 @@
 export default class Card {
-  constructor({ data, handleCardClick }, cardSelector) {
+  constructor({ data, handleCardClick }, cardSelectors) {
     this._handleCardClick = handleCardClick;
     this._title = data.title;
     this._image = data.image;
     this._alt = data.alt;
-    this._cardSelector = cardSelector;
+    this._selectors = cardSelectors;
   }
 
   _openFullsizePhoto() {
@@ -15,16 +15,16 @@ export default class Card {
   }
 
   _removePlace(event) {
-    event.target.closest(".element").remove();
+    event.target.closest(this._selectors.card).remove();
   }
 
   _activateLike(event) {
-    event.target.classList.toggle("element__like-button_active");
+    event.target.classList.toggle(this._selectors.likeButtonActive);
   }
 
   _getTemplate() {
     const templateContent = document
-      .querySelector(this._cardSelector)
+      .querySelector(this._selectors.cardTemplate)
       .content.cloneNode(true);
     return templateContent;
   }
@@ -32,15 +32,15 @@ export default class Card {
   _setListeners() {
     this._element = this._getTemplate();
     this._element
-      .querySelector(".element__picture")
+      .querySelector(this._selectors.picture)
       .addEventListener("click", this._openFullsizePhoto.bind(this));
     this._element
-      .querySelector(".element__delete-button")
+      .querySelector(this._selectors.deleteButton)
       .addEventListener("click", (evt) => {
         this._removePlace(evt);
       });
     this._element
-      .querySelector(".element__like-button")
+      .querySelector(this._selectors.likeButton)
       .addEventListener("click", (evt) => {
         this._activateLike(evt);
       });
@@ -50,9 +50,9 @@ export default class Card {
     this._element = this._getTemplate();
     this._setListeners();
 
-    const elementPicture = this._element.querySelector(".element__picture");
+    const elementPicture = this._element.querySelector(this._selectors.picture);
 
-    this._element.querySelector(".element__name").textContent = this._title;
+    this._element.querySelector(this._selectors.title).textContent = this._title;
     elementPicture.src = this._image;
     elementPicture.alt = this._alt;
 

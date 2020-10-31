@@ -5,13 +5,11 @@ export const profileName = document.querySelector(".profile__name");
 export const profileBio = document.querySelector(".profile__bio");
 
 export const editProfilePopup = document.querySelector(".edit-profile");
-export const editProfileForm = editProfilePopup.querySelector(".form");
-export const nameInput = editProfileForm.querySelector(".user-name");
-export const bioInput = editProfileForm.querySelector(".user-bio");
+export const editProfileForm = document.forms.editProfileForm;
 
 export const addPlaceButton = document.querySelector(".profile__add-button");
 export const addPlacePopup = document.querySelector(".add-place");
-export const addPlaceForm = addPlacePopup.querySelector(".form");
+export const addPlaceForm = document.forms.addPlaceForm;
 
 export const elements = document.querySelector(".elements");
 
@@ -24,6 +22,27 @@ export const validationSelectors = {
   inactiveButton: "popup__submit-button_disabled",
   inputError: "popup__input_type_error",
   errorVisible: "popup__input-error_visible",
+};
+
+export const cardSelectors = {
+  cardTemplate: ".card-template",
+  card: ".element",
+  picture: ".element__picture",
+  title: ".element__name",
+  likeButton: ".element__like-button",
+  likeButtonActive: "element__like-button_active",
+  deleteButton: ".element__delete-button",
+};
+
+export const popupSelectors = {
+  openedPopup: "popup_opened",
+  form: ".form",
+  closeButton: ".popup__close-icon",
+  title: "popup__title",
+  picture: ".popup__picture",
+  input: ".popup__input",
+  submitButton: ".popup__submit-button",
+  caption: ".popup__caption",
 };
 
 export const placeCards = [

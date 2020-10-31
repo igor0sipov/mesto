@@ -6,15 +6,15 @@ import {
   profileBio,
   editProfilePopup,
   editProfileForm,
-  nameInput,
-  bioInput,
   addPlaceButton,
   addPlacePopup,
   addPlaceForm,
   elements,
-  validationSelectors,
-  placeCards,
   fullsizePicturePopup,
+  validationSelectors,
+  cardSelectors,
+  popupSelectors,
+  placeCards,
 } from "../utils/constants.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
@@ -25,10 +25,13 @@ import PopupWithImage from "../components/PopupWithImage.js";
 
 //===============================validation===================================================
 
-const editForm = new FormValidator(validationSelectors, editProfileForm);
-editForm.enableValidation();
-const placeForm = new FormValidator(validationSelectors, addPlaceForm);
-placeForm.enableValidation();
+const editProfileFormValidator = new FormValidator(
+  validationSelectors,
+  editProfileForm
+);
+editProfileFormValidator.enableValidation();
+const placeFormValidator = new FormValidator(validationSelectors, addPlaceForm);
+placeFormValidator.enableValidation();
 
 //====================================popups==================================================
 
@@ -39,19 +42,16 @@ const userInfo = new UserInfo({
 
 const editPopup = new PopupWithForm(
   {
-    popupSelector: editProfilePopup,
+    popup: editProfilePopup,
     handleFormSubmit: (profilePopupInputs) => {
       userInfo.setUserInfo({
-        newName: profilePopupInputs.topLine,
-        newBio: profilePopupInputs.bottomLine,
+        newName: profilePopupInputs.name,
+        newBio: profilePopupInputs.bio,
       });
       editPopup.close();
     },
   },
-  {
-    topInput: ".user-name",
-    bottomInput: ".user-bio",
-  }
+  popupSelectors
 );
 editPopup.setEventListeners();
 
@@ -67,7 +67,7 @@ const renderCards = (cardsInfoArray) => {
               picturePopup.open(image, title);
             },
           },
-          ".card-template"
+          cardSelectors
         );
         const cardElement = card.initializeCard();
         section.addItem(cardElement);
@@ -81,41 +81,38 @@ const renderCards = (cardsInfoArray) => {
 
 const placePopup = new PopupWithForm(
   {
-    popupSelector: addPlacePopup,
+    popup: addPlacePopup,
     handleFormSubmit: (placePopupInputs) => {
       renderCards([
         {
-          title: placePopupInputs.topLine,
-          image: placePopupInputs.bottomLine,
-          alt: placePopupInputs.topLine,
+          title: placePopupInputs.title,
+          image: placePopupInputs.url,
+          alt: placePopupInputs.title,
         },
       ]);
       placePopup.close();
     },
   },
-  {
-    topInput: ".place-title",
-    bottomInput: ".place-url",
-  }
+  popupSelectors
 );
 placePopup.setEventListeners();
 
-const picturePopup = new PopupWithImage(fullsizePicturePopup);
+const picturePopup = new PopupWithImage(fullsizePicturePopup, popupSelectors);
 picturePopup.setEventListeners();
 
 //========================popups-opening/closing==============================================
 
 editProfileButton.addEventListener("click", () => {
   const profileInfo = userInfo.getUserInfo();
-  nameInput.value = profileInfo.name;
-  bioInput.value = profileInfo.bio;
-  editForm.validate();
+  editProfileForm.elements.name.value = profileInfo.name;
+  editProfileForm.elements.bio.value = profileInfo.bio;
+  editProfileFormValidator.validate();
   editPopup.open();
 });
 
 addPlaceButton.addEventListener("click", () => {
-  placeForm.validate();
-  placeForm.clear();
+  placeFormValidator.validate();
+  placeFormValidator.clear();
   placePopup.open();
 });
 
