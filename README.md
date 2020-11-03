@@ -25,4 +25,4 @@ v3.0
 v4.0
 Проект переделан с использованием классов, нового функционала практически нет, но код стал более компактным приятным для восприятия и работы.
 
-* [Ссылка на GitHub Pages](https://igor0sipov.github.io/mesto/index.html)
+* [Ссылка на GitHub Pages](https://igor0sipov.github.io/mesto-dist/index.html)
