@@ -2,13 +2,14 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { Template } = require("webpack");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const rimraf = require("rimraf");
 
 module.exports = {
   entry: "./src/pages/index.js",
   output: {
     filename: "main.js",
     path: path.resolve(__dirname, "dist"),
-    publicPath: "/",
+    publicPath: "./",
   },
 
   module: {
@@ -52,6 +53,11 @@ module.exports = {
   },
 
   plugins: [
+    {
+      apply: (compiler) => {
+        rimraf.sync(compiler.options.output.path);
+      },
+    },
     new HtmlWebpackPlugin({
       title: "Mesto",
       filename: "index.html",
