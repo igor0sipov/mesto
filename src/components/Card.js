@@ -1,10 +1,11 @@
 export default class Card {
-  constructor({ data, handleCardClick }, cardSelectors) {
+  constructor({ data, handleCardClick, handleCardRemove}, cardSelectors) {
     this._handleCardClick = handleCardClick;
-    this._title = data.title;
-    this._image = data.image;
-    this._alt = data.alt;
+    this._title = data.name;
+    this._image = data.link;
+    this._alt = data.name;
     this._selectors = cardSelectors;
+    this._handleCardRemove = handleCardRemove;
   }
 
   _openFullsizePhoto() {
@@ -15,6 +16,7 @@ export default class Card {
   }
 
   _removePlace(event) {
+    this._handleCardRemove();
     event.target.closest(this._selectors.card).remove();
   }
 
