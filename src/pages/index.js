@@ -9,11 +9,13 @@ import {
   addPlaceButton,
   addPlacePopup,
   addPlaceForm,
+  confirmDeletePopup,
   elements,
   fullsizePicturePopup,
   validationSelectors,
   cardSelectors,
   popupSelectors,
+  myId,
 } from "../utils/constants.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
@@ -23,7 +25,7 @@ import Card from "../components/Card.js";
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 
-//===============================validation===================================================
+//===============================API===================================================
 const apiConfig = {
   token: "fe948c7b-c7fe-4065-b9c1-1b820e5df7d7",
   userProfileUrl: "https://mesto.nomoreparties.co/v1/cohort-17/users/me/",
@@ -92,11 +94,13 @@ const renderCards = (cardsInfoArray) => {
             handleCardClick: ({ image, title }) => {
               picturePopup.open(image, title);
             },
-            handleCardRemove: () => {
-              api.deleteCard(cardData._id);
-            }
+            handleDeleteButtonClick: (id) => {
+              confirmDeletePopup.id = id;
+              deletePopup.open();
+            },
           },
-          cardSelectors
+          cardSelectors,
+          myId,
         );
         const cardElement = card.initializeCard();
         section.addItem(cardElement);
@@ -112,11 +116,10 @@ const placePopup = new PopupWithForm(
   {
     popup: addPlacePopup,
     handleFormSubmit: (placePopupInputs) => {
-
       api.addCard({
         name: placePopupInputs.title,
         link: placePopupInputs.url,
-      })
+      });
 
       renderCards([
         {
@@ -134,6 +137,18 @@ placePopup.setEventListeners();
 
 const picturePopup = new PopupWithImage(fullsizePicturePopup, popupSelectors);
 picturePopup.setEventListeners();
+
+const deletePopup = new PopupWithForm(
+  {
+    popup: confirmDeletePopup,
+    handleFormSubmit: () => {
+      api.deleteCard(confirmDeletePopup.id);
+      deletePopup.close();
+    },
+  },
+  popupSelectors
+);
+deletePopup.setEventListeners();
 
 //========================popups-opening/closing==============================================
 

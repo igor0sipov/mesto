@@ -1,11 +1,18 @@
 export default class Card {
-  constructor({ data, handleCardClick, handleCardRemove}, cardSelectors) {
+  constructor(
+    { data, handleCardClick, handleDeleteButtonClick },
+    cardSelectors,
+    myId
+  ) {
     this._handleCardClick = handleCardClick;
     this._title = data.name;
     this._image = data.link;
     this._alt = data.name;
     this._selectors = cardSelectors;
-    this._handleCardRemove = handleCardRemove;
+    this._handleDeleteButtonClick = handleDeleteButtonClick;
+    this._myId = myId;
+    this._ownerId = data.owner._id;
+    this._photoId = data._id;
   }
 
   _openFullsizePhoto() {
@@ -16,8 +23,8 @@ export default class Card {
   }
 
   _removePlace(event) {
-    this._handleCardRemove();
-    event.target.closest(this._selectors.card).remove();
+    this._handleDeleteButtonClick(this._photoId);
+    // event.target.closest(this._selectors.card).remove();
   }
 
   _activateLike(event) {
@@ -53,8 +60,17 @@ export default class Card {
     this._setListeners();
 
     const elementPicture = this._element.querySelector(this._selectors.picture);
+    const deleteButton = this._element.querySelector(
+      this._selectors.deleteButton
+    );
 
-    this._element.querySelector(this._selectors.title).textContent = this._title;
+    if (this._ownerId !== this._myId) {
+      deleteButton.classList.add("element__delete-button_hidden");
+    }
+
+    this._element.querySelector(
+      this._selectors.title
+    ).textContent = this._title;
     elementPicture.src = this._image;
     elementPicture.alt = this._alt;
 

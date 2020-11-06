@@ -9,7 +9,7 @@ export default class Api {
     return fetch(url, options)
       .then((result) => {
         if (!result.ok) {
-          return Promise.reject("Server error");
+          return Promise.reject(`Ошибка: ${result.status}`);
         }
         return result.json();
       })

@@ -34,7 +34,11 @@
           <button class="element__delete-button"></button>
           <img src="#" alt="#" class="element__picture">
           <h2 class="element__name"></h2>
-          <button class="element__like-button"></button>
+          <figure class="element__like">
+            <button class="element__like-button"></button>
+            <figcaption class="element__like-counter">0</figcaption>
+          </figure>
+
         </li>
       </template>
       </ul>
@@ -61,6 +65,14 @@
             <input type="url" class="popup__input" id="form-url" name="url" placeholder="Ссылка на картинку" required>
             <span class="popup__input-error form-url-error"></span>
           <button type="submit" class="popup__submit-button">Сохранить</button>
+        </form>
+      </section>
+
+      <section class="popup confirm-delete">
+        <form class="popup__container form" name="confirmCardDelete" novalidate>
+          <button type="button" class="popup__close-icon"></button>
+          <h3 class="popup__title">Вы уверены?</h3>
+          <button type="submit" class="popup__submit-button">Да</button>
         </form>
       </section>
 

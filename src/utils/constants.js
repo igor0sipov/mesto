@@ -4,6 +4,8 @@ export const editProfileButton = document.querySelector(
 export const profileName = document.querySelector(".profile__name");
 export const profileBio = document.querySelector(".profile__bio");
 
+export const confirmDeletePopup = document.querySelector(".confirm-delete");
+
 export const editProfilePopup = document.querySelector(".edit-profile");
 export const editProfileForm = document.forms.editProfileForm;
 
@@ -14,6 +16,8 @@ export const addPlaceForm = document.forms.addPlaceForm;
 export const elements = document.querySelector(".elements");
 
 export const fullsizePicturePopup = document.querySelector(".fullsize-picture");
+
+export const myId = "86dbbabbe99c68a05ddfc98c";
 
 export const validationSelectors = {
   form: ".form",
