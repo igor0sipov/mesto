@@ -36,6 +36,7 @@ export const cardSelectors = {
   likeButton: ".element__like-button",
   likeButtonActive: "element__like-button_active",
   deleteButton: ".element__delete-button",
+  likeCounter: ".element__like-counter",
 };
 
 export const popupSelectors = {

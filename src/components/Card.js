@@ -13,6 +13,7 @@ export default class Card {
     this._myId = myId;
     this._ownerId = data.owner._id;
     this._photoId = data._id;
+    this._likes = data.likes;
   }
 
   _openFullsizePhoto() {
@@ -63,6 +64,9 @@ export default class Card {
     const deleteButton = this._element.querySelector(
       this._selectors.deleteButton
     );
+    const likeCounter = this._element.querySelector(this._selectors.likeCounter);
+
+    likeCounter.textContent = this._likes.length;
 
     if (this._ownerId !== this._myId) {
       deleteButton.classList.add("element__delete-button_hidden");
