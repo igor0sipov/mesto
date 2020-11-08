@@ -17,7 +17,7 @@ export default class Api {
         return data;
       })
       .catch((err) => {
-        alert(err);
+        console.log(err);
       });
   }
 
@@ -31,6 +31,14 @@ export default class Api {
 
   getCards() {
     return this._newFetch(this._cardsUrl, {
+      headers: {
+        authorization: this._token,
+      },
+    });
+  }
+
+  getCard(id) {
+    return this._newFetch(this._cardsUrl + id, {
       headers: {
         authorization: this._token,
       },
@@ -70,6 +78,25 @@ export default class Api {
       method: "DELETE",
       headers: {
         authorization: this._token
+      }
+    })
+  }
+
+
+  like(id) {
+    return this._newFetch(this._cardsUrl + 'likes/' + id, {
+      method: "PUT",
+      headers: {
+        authorization: this._token,
+      }
+    })
+  }
+
+  removeLike(id) {
+    return this._newFetch(this._cardsUrl + 'likes/' + id, {
+      method: "DELETE",
+      headers: {
+        authorization: this._token,
       }
     })
   }

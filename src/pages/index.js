@@ -98,9 +98,30 @@ const renderCards = (cardsInfoArray) => {
               confirmDeletePopup.id = id;
               deletePopup.open();
             },
+            handleLikeButtonClick: (id) => {
+              return api.getCards().then((cards) => {
+                const card = cards.filter((item) => item._id === id)[0];
+                if (card.likes.length > 0) {
+                  const like = card.likes.filter((like) => like._id === myId);
+                  if (like.length > 0) {
+                    return api.removeLike(id);
+                    console.log("DELETE");
+                    return false;
+                  } else {
+                    return api.like(id);
+                    console.log("PUT");
+                    return true;
+                  }
+                } else {
+                  return api.like(id);
+                  console.log("PUT");
+                  return true;
+                }
+              })
+            },
           },
           cardSelectors,
-          myId,
+          myId
         );
         const cardElement = card.initializeCard();
         section.addItem(cardElement);
