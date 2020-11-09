@@ -20,7 +20,7 @@
 
       <section class="profile profile_spaced sizer">
         <div class="profile__avatar-wrapper">
-          <img src="./images/avatar.jpg" alt="Ехидный колобок" class="profile__avatar">
+          <img src="./images/user.png" alt="Ехидный колобок" class="profile__avatar">
           <button class="profile__edit-avatar-button">
             <img src="./images/edit-avatar-icon.svg" alt="" class="profile__edit-avatar-icon">
           </button>
@@ -83,12 +83,12 @@
         </form>
       </section>
 
-      <section class="popup confirm-delete">
-        <form class="popup__container form" name="confirmCardDelete" novalidate>
-          <input type="text" class="popup__input" id="form-avatar" name="avatar" placeholder="Ссылка на аватар" required minlength="2" maxlength="40">
+      <section class="popup update-avatar">
+        <form class="popup__container form" name="updateAvatar" novalidate>
+          <h3 class="popup__title">Обновить аватар</h3>
+          <input type="url" class="popup__input" id="form-avatar" name="avatar" placeholder="Ссылка на аватар" required minlength="2" maxlength="200">
           <span class="popup__input-error form-avatar-error"></span>
           <button type="button" class="popup__close-icon"></button>
-          <h3 class="popup__title">Обновить аватар</h3>
           <button type="submit" class="popup__submit-button">Сохранить</button>
         </form>
       </section>

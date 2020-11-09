@@ -3,6 +3,13 @@ export const editProfileButton = document.querySelector(
 );
 export const profileName = document.querySelector(".profile__name");
 export const profileBio = document.querySelector(".profile__bio");
+export const profileAvatar = document.querySelector(".profile__avatar");
+
+export const editAvatarButton = document.querySelector(
+  ".profile__edit-avatar-button"
+);
+export const updateAvatarPopup = document.querySelector(".update-avatar");
+export const updateAvatarForm = document.forms.updateAvatar;
 
 export const confirmDeletePopup = document.querySelector(".confirm-delete");
 
@@ -18,6 +25,12 @@ export const elements = document.querySelector(".elements");
 export const fullsizePicturePopup = document.querySelector(".fullsize-picture");
 
 export const myId = "86dbbabbe99c68a05ddfc98c";
+
+export const apiConfig = {
+  token: "fe948c7b-c7fe-4065-b9c1-1b820e5df7d7",
+  userProfileUrl: "https://mesto.nomoreparties.co/v1/cohort-17/users/me/",
+  cardsUrl: "https://mesto.nomoreparties.co/v1/cohort-17/cards/",
+};
 
 export const validationSelectors = {
   form: ".form",
@@ -36,6 +49,7 @@ export const cardSelectors = {
   likeButton: ".element__like-button",
   likeButtonActive: "element__like-button_active",
   deleteButton: ".element__delete-button",
+  hiddenDeleteButton: "element__delete-button_hidden",
   likeCounter: ".element__like-counter",
 };
 

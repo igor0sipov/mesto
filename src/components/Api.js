@@ -5,8 +5,12 @@ export default class Api {
     this._cardsUrl = config.cardsUrl;
   }
 
-  _newFetch(url, options) {
-    return fetch(url, options)
+  getUserInfo() {
+    return fetch(this._userProfileUrl, {
+      headers: {
+        authorization: this._token,
+      },
+    })
       .then((result) => {
         if (!result.ok) {
           return Promise.reject(`Ошибка: ${result.status}`);
@@ -21,32 +25,28 @@ export default class Api {
       });
   }
 
-  getUserInfo() {
-    return this._newFetch(this._userProfileUrl, {
-      headers: {
-        authorization: this._token,
-      },
-    });
-  }
-
   getCards() {
-    return this._newFetch(this._cardsUrl, {
+    return fetch(this._cardsUrl, {
       headers: {
         authorization: this._token,
       },
-    });
-  }
-
-  getCard(id) {
-    return this._newFetch(this._cardsUrl + id, {
-      headers: {
-        authorization: this._token,
-      },
-    });
+    })
+      .then((result) => {
+        if (!result.ok) {
+          return Promise.reject(`Ошибка: ${result.status}`);
+        }
+        return result.json();
+      })
+      .then((data) => {
+        return data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   editProfile({ name, about }) {
-    return this._newFetch(this._userProfileUrl, {
+    return fetch(this._userProfileUrl, {
       method: "PATCH",
       headers: {
         authorization: this._token,
@@ -56,11 +56,23 @@ export default class Api {
         name: name,
         about: about,
       }),
-    });
+    })
+      .then((result) => {
+        if (!result.ok) {
+          return Promise.reject(`Ошибка: ${result.status}`);
+        }
+        return result.json();
+      })
+      .then((data) => {
+        return data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   addCard({ name, link }) {
-    return this._newFetch(this._cardsUrl, {
+    return fetch(this._cardsUrl, {
       method: "POST",
       headers: {
         authorization: this._token,
@@ -70,34 +82,106 @@ export default class Api {
         name: name,
         link: link,
       }),
-    });
+    })
+      .then((result) => {
+        if (!result.ok) {
+          return Promise.reject(`Ошибка: ${result.status}`);
+        }
+        return result.json();
+      })
+      .then((data) => {
+        return data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   deleteCard(id) {
-    return this._newFetch(this._cardsUrl + id, {
+    return fetch(this._cardsUrl + id, {
       method: "DELETE",
       headers: {
-        authorization: this._token
-      }
+        authorization: this._token,
+      },
     })
+      .then((result) => {
+        if (!result.ok) {
+          return Promise.reject(`Ошибка: ${result.status}`);
+        }
+        return result;
+      })
+      .then((data) => {
+        return data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
-
   like(id) {
-    return this._newFetch(this._cardsUrl + 'likes/' + id, {
+    return fetch(this._cardsUrl + "likes/" + id, {
       method: "PUT",
       headers: {
         authorization: this._token,
-      }
+      },
     })
+      .then((result) => {
+        if (!result.ok) {
+          return Promise.reject(`Ошибка: ${result.status}`);
+        }
+        return result.json();
+      })
+      .then((data) => {
+        return data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   removeLike(id) {
-    return this._newFetch(this._cardsUrl + 'likes/' + id, {
+    return fetch(this._cardsUrl + "likes/" + id, {
       method: "DELETE",
       headers: {
         authorization: this._token,
-      }
+      },
     })
+      .then((result) => {
+        if (!result.ok) {
+          return Promise.reject(`Ошибка: ${result.status}`);
+        }
+        return result.json();
+      })
+      .then((data) => {
+        return data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  updateAvatar(avatar) {
+    return fetch(this._userProfileUrl + "avatar/", {
+      method: "PATCH",
+      headers: {
+        authorization: this._token,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        avatar: avatar,
+      }),
+    })
+      .then((result) => {
+        if (!result.ok) {
+          return Promise.reject(`Ошибка: ${result.status}`);
+        }
+        return result.json();
+      })
+      .then((data) => {
+        return data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 }

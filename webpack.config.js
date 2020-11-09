@@ -1,6 +1,5 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { Template } = require("webpack");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const rimraf = require("rimraf");
 
@@ -51,7 +50,7 @@ module.exports = {
       },
     ],
   },
-
+  devtool: 'inline-source-map',
   plugins: [
     {
       apply: (compiler) => {
