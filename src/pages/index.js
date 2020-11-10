@@ -33,15 +33,14 @@ import PopupWithImage from "../components/PopupWithImage.js";
 //===============================API===================================================
 const api = new Api(apiConfig);
 
-Promise.all([
-  api.getUserInfo(),
-  api.getCards()
-]).then(([userData, baseCards]) => {
-  profileName.textContent = userData.name;
-  profileBio.textContent = userData.about;
-  profileAvatar.src = userData.avatar;
-  renderBaseCards(baseCards);
-})
+Promise.all([api.getUserInfo(), api.getCards()]).then(
+  ([userData, baseCards]) => {
+    profileName.textContent = userData.name;
+    profileBio.textContent = userData.about;
+    profileAvatar.src = userData.avatar;
+    renderBaseCards(baseCards);
+  }
+);
 
 //===============================validation===================================================
 
@@ -109,7 +108,6 @@ const renderCards = (cardData) => {
           if (card.likes.length > 0) {
             // проверяем наличие лайков
             const hasLike = card.likes.some((like) => like._id === myId);
-            // debugger;
             if (hasLike) {
               // проверяем наличие моего лайка
               return api.removeLike(id);
