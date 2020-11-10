@@ -16,7 +16,7 @@ export default class PopupWithForm extends Popup {
     );
     const inputValues = {};
     inputList.forEach((input) => {
-      inputValues[`${input.name}`] = input.value;
+      inputValues[input.name] = input.value;
     });
 
     return inputValues;
