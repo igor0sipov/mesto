@@ -5,18 +5,27 @@ export default class Api {
     this._cardsUrl = config.cardsUrl;
   }
 
+  _handleOriginalJsonResponse(result) {
+    if (!result.ok) {
+      return Promise.reject(`Ошибка: ${result.status}`);
+    }
+    return result.json();
+  }
+
+  _handleOriginalResponse(result) {
+    if (!result.ok) {
+      return Promise.reject(`Ошибка: ${result.status}`);
+    }
+    return result;
+  }
+
   getUserInfo() {
     return fetch(this._userProfileUrl, {
       headers: {
         authorization: this._token,
       },
     })
-      .then((result) => {
-        if (!result.ok) {
-          return Promise.reject(`Ошибка: ${result.status}`);
-        }
-        return result.json();
-      })
+      .then(this._handleOriginalJsonResponse)
       .then((data) => {
         return data;
       })
@@ -31,12 +40,7 @@ export default class Api {
         authorization: this._token,
       },
     })
-      .then((result) => {
-        if (!result.ok) {
-          return Promise.reject(`Ошибка: ${result.status}`);
-        }
-        return result.json();
-      })
+      .then(this._handleOriginalJsonResponse)
       .then((data) => {
         return data;
       })
@@ -57,12 +61,7 @@ export default class Api {
         about: about,
       }),
     })
-      .then((result) => {
-        if (!result.ok) {
-          return Promise.reject(`Ошибка: ${result.status}`);
-        }
-        return result.json();
-      })
+      .then(this._handleOriginalJsonResponse)
       .then((data) => {
         return data;
       })
@@ -83,12 +82,7 @@ export default class Api {
         link: link,
       }),
     })
-      .then((result) => {
-        if (!result.ok) {
-          return Promise.reject(`Ошибка: ${result.status}`);
-        }
-        return result.json();
-      })
+      .then(this._handleOriginalJsonResponse)
       .then((data) => {
         return data;
       })
@@ -104,12 +98,7 @@ export default class Api {
         authorization: this._token,
       },
     })
-      .then((result) => {
-        if (!result.ok) {
-          return Promise.reject(`Ошибка: ${result.status}`);
-        }
-        return result;
-      })
+      .then(this._handleOriginalResponse)
       .then((data) => {
         return data;
       })
@@ -125,12 +114,7 @@ export default class Api {
         authorization: this._token,
       },
     })
-      .then((result) => {
-        if (!result.ok) {
-          return Promise.reject(`Ошибка: ${result.status}`);
-        }
-        return result.json();
-      })
+      .then(this._handleOriginalJsonResponse)
       .then((data) => {
         return data;
       })
@@ -146,12 +130,7 @@ export default class Api {
         authorization: this._token,
       },
     })
-      .then((result) => {
-        if (!result.ok) {
-          return Promise.reject(`Ошибка: ${result.status}`);
-        }
-        return result.json();
-      })
+      .then(this._handleOriginalJsonResponse)
       .then((data) => {
         return data;
       })
@@ -171,12 +150,7 @@ export default class Api {
         avatar: avatar,
       }),
     })
-      .then((result) => {
-        if (!result.ok) {
-          return Promise.reject(`Ошибка: ${result.status}`);
-        }
-        return result.json();
-      })
+      .then(this._handleOriginalJsonResponse)
       .then((data) => {
         return data;
       })
