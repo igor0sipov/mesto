@@ -33,15 +33,15 @@ import PopupWithImage from "../components/PopupWithImage.js";
 //===============================API===================================================
 const api = new Api(apiConfig);
 
-api.getUserInfo().then((info) => {
-  profileName.textContent = info.name;
-  profileBio.textContent = info.about;
-  profileAvatar.src = info.avatar;
-});
-
-api.getCards().then((cardsInfo) => {
-  renderBaseCards(cardsInfo);
-});
+Promise.all([
+  api.getUserInfo(),
+  api.getCards()
+]).then(([userData, baseCards]) => {
+  profileName.textContent = userData.name;
+  profileBio.textContent = userData.about;
+  profileAvatar.src = userData.avatar;
+  renderBaseCards(baseCards);
+})
 
 //===============================validation===================================================
 
@@ -105,11 +105,12 @@ const renderCards = (cardData) => {
       },
       handleLikeButtonClick: (id) => {
         return api.getCards().then((cards) => {
-          const card = cards.filter((item) => item._id === id)[0]; // выбираем нужную карточку
+          const card = cards.find((item) => item._id === id); // выбираем нужную карточку
           if (card.likes.length > 0) {
             // проверяем наличие лайков
-            const like = card.likes.filter((like) => like._id === myId);
-            if (like.length > 0) {
+            const hasLike = card.likes.some((like) => like._id === myId);
+            // debugger;
+            if (hasLike) {
               // проверяем наличие моего лайка
               return api.removeLike(id);
             } else {
@@ -175,9 +176,8 @@ const deletePopup = new PopupWithForm(
         if (result.ok) {
           const currentCard = Array.from(
             document.querySelectorAll(".element")
-          ).filter((card) => card.id === confirmDeletePopup.id);
-          currentCard[0].remove();
-          currentCard[0] = null;
+          ).find((card) => card.id === confirmDeletePopup.id);
+          currentCard.remove();
         }
         deletePopup.close();
         deletePopup.setLoadingState(false);
