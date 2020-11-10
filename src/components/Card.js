@@ -35,7 +35,7 @@ export default class Card {
   }
 
   _getMyLike(data) {
-    return data.likes.filter((like) => like._id === this._myId);
+    return data.likes.some((like) => like._id === this._myId);
   }
 
   _setEventListeners(cardElements) {
@@ -43,8 +43,8 @@ export default class Card {
       this._like(cardElements.likeButton);
       const likeData = this._handleLikeButtonClick(this._data._id);
       likeData.then((likeInfo) => {
-        const myLike = this._getMyLike(likeInfo);
-        if (myLike.length > 0) {
+        const hasLike = this._getMyLike(likeInfo);
+        if (hasLike) {
           this._like(cardElements.likeButton);
           cardElements.likeCounter.textContent = likeInfo.likes.length;
         } else {
@@ -90,8 +90,8 @@ export default class Card {
       );
     }
 
-    const myLike = this._getMyLike(this._data);
-    if (myLike.length > 0) {
+    const hasLike = this._getMyLike(this._data);
+    if (hasLike) {
       this._like(cardElements.likeButton);
     }
 
