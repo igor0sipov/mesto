@@ -30,4 +30,4 @@ v5.0
 Теперь есть возможность изменить аватарку и не бояться за случайное удаление карточки, вас обязательно переспросят хотите ли вы этого!
 Отображается количество лайков.
 
-* [Ссылка на GitHub Pages](https://igor0sipov.github.io/mesto-dist/index.html)
+* [Ссылка на GitHub Pages](https://igor0sipov.github.io/mesto/)
